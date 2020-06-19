@@ -8,23 +8,33 @@ import './Sidebar.model.css';
 const Sidebar = () => {
 
     
-
-
     return (
-        <nav className="sidebar">
-            sidebar
-                <NavLink to="/profile">
-                    Account
-                </NavLink>
-                <NavLink to="/profile">
-                    Books
-                </NavLink>
-                <NavLink to="/profile">
-                    Movies
-                </NavLink>
-                <NavLink to="/profile">
-                    Misc
-                </NavLink>
+        <nav className="sidebar-container">
+            <div className="logo">
+                    Sidebar
+            </div>
+            <ul className="sidebar">
+                <li className="side__item">
+                    <NavLink to="/profile">
+                        Account
+                    </NavLink>
+                </li>
+                <li className="side__item">
+                    <NavLink to="/profile">
+                        Books
+                    </NavLink>
+                </li>
+                <li className="side__item">
+                    <NavLink to="/profile">
+                        Movies
+                    </NavLink>
+                </li>
+                <li className="side__item">
+                    <NavLink to="/profile">
+                        Misc
+                    </NavLink>
+                </li>
+            </ul> 
         </nav>
     )
 };

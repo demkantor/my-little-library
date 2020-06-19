@@ -24,8 +24,10 @@
 
 .navbar-container {
     position: fixed;
+    top: 0;
     width: 100%;
     background: var(--bg-teritary);
+    margin-left: 15vw;
 }
 
 .navbar {
@@ -36,7 +38,13 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: 85vw;
+    transition: var(--tran-primary);
+}
+
+.expanded {
+    width: 100vw;
+    transition: var(--tran-primary);
 }
 
 .nav__item {

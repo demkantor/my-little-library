@@ -5,7 +5,7 @@ import './Navbar.model.css';
 
 
 
-const Navbar = () => {
+const Navbar = ({ handleExpand }) => {
 
     const [openSidebar, setOpenSidebar] = useState(true);
     const [expandMenu, setExpandMenu] = useState(false); 
@@ -15,17 +15,17 @@ const Navbar = () => {
 
     return (
         <nav className="navbar-container">
-            <ul className="navbar">
+            <ul className={openSidebar ? "navbar" : "navbar expanded"}>
                 <li className="nav__item">
-                    <button className="nav__btn" onClick={toggleOpen}>
+                    <button className="nav__btn" onClick={()=>{toggleOpen(); handleExpand()}}>
                         {openSidebar
                         ?
                         <span className="material-icons">
-                            menu
+                            menu_open
                         </span> 
                         :
                         <span className="material-icons">
-                            menu_open
+                            menu
                         </span> 
                         }
                     </button>
