@@ -1,0 +1,60 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import './Navbar.model.css';
+
+
+
+const Navbar = () => {
+
+    const [openSidebar, setOpenSidebar] = useState(true);
+    const [expandMenu, setExpandMenu] = useState(false); 
+
+    const toggleOpen = () => setOpenSidebar(!openSidebar);
+    const toggleMenu = () => setExpandMenu(!expandMenu);
+
+    return (
+        <nav className="navbar-container">
+            <ul className="navbar">
+                <li className="nav__item">
+                    <button className="nav__btn" onClick={toggleOpen}>
+                        {openSidebar
+                        ?
+                        <span className="material-icons">
+                            menu
+                        </span> 
+                        :
+                        <span className="material-icons">
+                            menu_open
+                        </span> 
+                        }
+                    </button>
+                </li>
+                <li className={expandMenu ? 'nav__item menu -active' : 'nav__item menu'} onClick={toggleMenu}>
+                    {/* <img src="" alt="" className="nav_pic" /> */}
+                    <span className="material-icons">
+                        face
+                    </span> 
+                    <span>Profile Name</span>
+                    <span className="material-icons">expand_more</span>
+                    <ul className="menu__list">
+                        <Link to="/profile" className="menu__item">
+                            <span className="material-icons menu__icon">
+                                person
+                            </span> 
+                            Profile
+                        </Link>
+                        <Link to="/" className="menu__item">
+                            <span className="material-icons menu__icon">
+                                login
+                            </span> 
+                            Log Out
+                        </Link>
+                    </ul> 
+                </li>
+            </ul>
+        </nav>
+    )
+};
+
+export default Navbar;
