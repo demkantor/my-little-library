@@ -16,9 +16,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req, res) => {
-    res.json('hello there!')
-});
+// Route includes
+const booksRouter = require('./routes/books.router');
+
+/* Routes */
+app.use('/api/books', booksRouter);
 
 
 // listen on port...
