@@ -9,10 +9,10 @@
     --tran-secondary: 600ms ease all;
 }
 
-body, html {
+html {
     margin: 0;
     padding: 0;
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     height: 100vh;
     width: 100vw;
     box-sizing: border-box;
@@ -23,7 +23,25 @@ body, html {
     transition: var(--tran-primary);
 }
 
+.section-wrapper {
+    position: relative;
+    margin-left: 15vw;
+    width: 85vw;
+}
+
 .expanded {
     margin-left: -15vw;
+    transition: var(--tran-primary);
+}
+
+.side-expanded {
+    width: 100vw;
+}
+
+.container {
+    margin: 0 2vw;
+    height: 75vh;
+    width: 93%;
+    background: var(--bg-teritary);
     transition: var(--tran-primary);
 }

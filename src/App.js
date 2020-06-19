@@ -4,9 +4,12 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
+import RouteMap from './components/RouteMap/RouteMap';
 import Home from './components/Home/Home';
 
 import Profile from './components/Profile/Profile';
+import Books from './components/Books/Books';
+
 
 class App extends Component {
 
@@ -27,17 +30,21 @@ class App extends Component {
           <div className={expandSide ? "main-wrapper expanded" : "main-wrapper"}>
             <Navbar handleExpand={this.handleExpand}/>
             <Sidebar />
-            <Switch>
-              <Route exact path="/" component={Home}c/>
-              <Route exact path="/profile" component={Profile} />
+            <RouteMap />
+            <div className={expandSide ? "section-wrapper side-expanded" : "section-wrapper"}>
+              <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route exact path="/profile" component={Profile} />
+                <Route exact path="/books" component={Books} />
 
-              {/* 404 page */}
-              <Route render={() => 
-                <div className="fourOfour">
-                  <h1>Lost? Me too...</h1>
-                </div>
-              }/>
-            </Switch>
+                {/* 404 page */}
+                <Route render={() => 
+                  <div className="fourOfour">
+                    <h1>Lost? Me too...</h1>
+                  </div>
+                }/>
+              </Switch>
+            </div>
           </div>
         </Router>
       </>

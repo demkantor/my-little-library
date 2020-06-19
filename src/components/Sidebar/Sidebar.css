@@ -6,12 +6,13 @@
     top: 0;
     width: 15vw;
     height: 100vh;
-    border-right: .2em solid var(--bg-primary);
+    border-right: .2em solid var(--bg-secondary);
+    z-index: 2;
 }
 
 .sidebar {
     position: relative;
-    top: 5em;
+    top: 3em;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -23,9 +24,32 @@
 
 .side__item {
     display: flex;
-    align-items: center;
+    align-items: self-start;
     height: 5rem;
+    text-decoration: none;
+    transition: var(--tran-primary);
+}
+
+.link {
     color: var(--text-primary);
     text-decoration: none;
     transition: var(--tran-primary);
+}
+
+.selected, .selected > .side__icon {
+    transition: var(--tran-primary);
+    transform: scale(1.3);
+    color: var(--text-teritary);
+}
+
+.logo {
+    text-align: center;
+    margin-top: 4vh;
+    font-weight: 900;
+    font-size: 1.5em;
+}
+
+.side__icon {
+    margin-right: .4em;
+    font-size: 1.5em;
 }

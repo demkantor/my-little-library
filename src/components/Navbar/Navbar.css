@@ -28,6 +28,8 @@
     width: 100%;
     background: var(--bg-teritary);
     margin-left: 15vw;
+    height: 10vw;
+    z-index: 2;
 }
 
 .navbar {
