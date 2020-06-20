@@ -18,6 +18,10 @@ html {
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+}
+
 .main-wrapper {
     margin-left: 0;
     transition: var(--tran-primary);
@@ -44,4 +48,13 @@ html {
     width: 93%;
     background: var(--bg-teritary);
     transition: var(--tran-primary);
+}
+
+.title {
+    font-size: 2em;
+}
+
+.center {
+    text-align: center;
+    justify-content: center;
 }

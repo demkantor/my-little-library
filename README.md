@@ -6,3 +6,8 @@
     node
     mongoDB
     JavaScript
+
+#### Credits
+    Photo by Malte Baumann on Unsplash
+    Icons from Material UI
+

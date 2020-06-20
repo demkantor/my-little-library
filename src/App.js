@@ -9,12 +9,14 @@ import Home from './components/Home/Home';
 
 import Profile from './components/Profile/Profile';
 import Books from './components/Books/Books';
+import Login from './components/Login/Login';
 
 
 class App extends Component {
 
   state = {
-    expandSide: false
+    expandSide: false,
+    loggedIn: false
   }
 
   handleExpand = () => {
@@ -22,11 +24,13 @@ class App extends Component {
   }
 
   render() {
-    const { expandSide } = this.state;
+    const { expandSide, loggedIn } = this.state;
 
     return (
       <>
         <Router>
+          {loggedIn
+          ?
           <div className={expandSide ? "main-wrapper expanded" : "main-wrapper"}>
             <Navbar handleExpand={this.handleExpand}/>
             <Sidebar />
@@ -46,6 +50,9 @@ class App extends Component {
               </Switch>
             </div>
           </div>
+          :
+          <Login />
+          }
         </Router>
       </>
     )
