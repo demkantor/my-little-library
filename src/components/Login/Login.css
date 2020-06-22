@@ -127,3 +127,9 @@
     transform: scale(1.05);
     transition: var(--tran-primary);
 }
+
+.form-errors {
+    color: var(--danger);
+    margin-top: 3em;
+    text-align: center;
+}

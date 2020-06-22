@@ -8,12 +8,20 @@ const Login = () => {
     const [showPass, setShowPass] = useState(false);
     const [userMail, setUserMail] = useState('');
     const [userPass, setUserPass] = useState('');
+    const [errors, setErrors] = useState('');
 
     const dispatch = useDispatch();
 
     const authenticate = (event) => {
         event.preventDefault();
-        dispatch({ type: 'LOGIN', payload: {email: userMail, pass: userPass}});
+        if( userMail === ''){
+            setErrors('Must Include Valid e-Mail!!');
+        } else if(userPass === ''){
+            setErrors('Must Include Valid Password!!');
+        } else {
+            setErrors('Loading...');
+            dispatch({ type: 'LOGIN', payload: {email: userMail, pass: userPass}});
+        };
     };
 
     return (
@@ -49,6 +57,11 @@ const Login = () => {
                         </div>
                     <button className="btn-lg" onClick={authenticate}>Sign In</button>
                 </form>
+                <div className="error form-errors">
+                    <h3>
+                        {errors}
+                    </h3>
+                </div>
             </div>
         </div>
     )
