@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
 import './Login.css';
 
 
@@ -8,9 +9,11 @@ const Login = () => {
     const [userMail, setUserMail] = useState('');
     const [userPass, setUserPass] = useState('');
 
+    const dispatch = useDispatch();
+
     const authenticate = (event) => {
         event.preventDefault();
-        console.log(userMail, userPass);
+        dispatch({ type: 'LOGIN', payload: {email: userMail, pass: userPass}});
     };
 
     return (
@@ -44,7 +47,7 @@ const Login = () => {
                                 {showPass ? '🙈' : '👁'}
                             </span>
                         </div>
-                    <button type="submit" className="btn-lg" onSubmit={authenticate}>Sign In</button>
+                    <button className="btn-lg" onClick={authenticate}>Sign In</button>
                 </form>
             </div>
         </div>
