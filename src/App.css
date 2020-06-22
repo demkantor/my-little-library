@@ -5,6 +5,9 @@
     --bg-primary: #dddddd;
     --bg-secondary: #eeeeee;
     --bg-teritary: #f5f5f5;
+    --success: #18b612e0;
+    --danger: #eb2525;
+    --submit: #0f3fdd;
     --tran-primary: 300ms ease all;
     --tran-secondary: 600ms ease all;
 }
