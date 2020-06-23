@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
@@ -15,8 +16,7 @@ import Login from './components/Login/Login';
 class App extends Component {
 
   state = {
-    expandSide: false,
-    loggedIn: false
+    expandSide: false
   }
 
   handleExpand = () => {
@@ -24,12 +24,13 @@ class App extends Component {
   }
 
   render() {
-    const { expandSide, loggedIn } = this.state;
+    const { expandSide } = this.state;
+    const { loggedIn } = this.props;
 
     return (
       <>
         <Router>
-          {loggedIn
+          {loggedIn === false
           ?
           <div className={expandSide ? "main-wrapper expanded" : "main-wrapper"}>
             <Navbar handleExpand={this.handleExpand}/>
@@ -59,4 +60,10 @@ class App extends Component {
   }
 };
 
-export default App;
+
+const putReduxStateOnProps = (reduxState) => ({
+  loggedIn: reduxState.user.currentUser.authenticated
+});
+
+
+export default connect(putReduxStateOnProps)(App);

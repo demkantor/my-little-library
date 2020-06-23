@@ -15,7 +15,7 @@ function* loginUser(user) {
     try {
         const login = yield axios.post(`/api/users/login`, user.payload);
         yield put({ type: 'SET_USER', payload: login.data });
-        console.log(login.data.success)
+        
     } catch (error) {
         console.log('Error with user login:', error);
     };

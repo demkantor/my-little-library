@@ -1,0 +1,35 @@
+.card-title {
+    padding: .8em;
+    margin: 0 .2em;
+    font-weight: 500;
+}
+
+.btn-container {
+    margin-left: 2em;
+    display: flex;
+    
+}
+
+.card-btn {
+    background: var(--text-teritary);
+    color: var(--bg-teritary);
+    font-size: 1.2em;
+    border: none;
+    appearance: none;
+    text-align: center;
+    padding: .6em .8em;
+    border-radius: .2em;
+    cursor: pointer;
+    transition: var(--tran-primary);
+    margin-right: .5em;
+}
+
+.btn-icon{
+    font-size: .8em;
+    margin-right: .2em;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: row;
+}
