@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { takeEvery, takeLatest, put } from "redux-saga/effects";
+import { takeEvery, put } from "redux-saga/effects";
 
 
 // these sagas take the dispatch and runs them before they get to the reducers
@@ -11,8 +11,14 @@ function* userSaga() {
 
 
 function* loginUser(user) {
-    yield console.log('in user login with ', user);
-
+    yield console.log('in user login with ', user.payload);
+    try {
+        const login = yield axios.post(`/api/users/login`, user.payload);
+        yield put({ type: 'SET_USER', payload: login.data });
+        console.log(login.data.success)
+    } catch (error) {
+        console.log('Error with user login:', error);
+    };
 };
 
 

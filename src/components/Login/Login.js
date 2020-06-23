@@ -20,7 +20,7 @@ const Login = () => {
             setErrors('Must Include Valid Password!!');
         } else {
             setErrors('Loading...');
-            dispatch({ type: 'LOGIN', payload: {email: userMail, pass: userPass}});
+            dispatch({ type: 'LOGIN', payload: {email: userMail, password: userPass}});
         };
     };
 
