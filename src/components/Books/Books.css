@@ -29,7 +29,70 @@
     margin-right: .2em;
 }
 
+.white {
+    background: var(--bg-teritary);
+    border: 1px solid var(--bg-primary);
+    color: var(--text-primary)
+}
+
+.books-search {
+    margin: 2em;
+    padding: 2em;
+    border: .1em solid var(--bg-primary);
+    border-radius: .4em;
+    width: 100%;
+}
+
+.books-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.books-form > input, .books-form > select{
+    font-size: 1.5em;
+    width: 60%;
+    margin: .75em 1em;
+}
+
 .content-wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: min-content;
+    width: 80%;
+}
+
+.search-btn-container {
+    margin-top: 1em;
+    float: right;
+}
+
+.books-table {
+    margin: 2em;
+    padding: 2em;
+    border: .1em solid var(--bg-primary);
+    border-radius: .4em;
+    width: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border:  1px solid;
+    padding: 10px;
+    min-width: 4em;
+    max-width: 10em;
+    background: var(--bg-teritary);
+    box-sizing: border-box;
+    text-align: left;
+}
+
+thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #d9a68c;
 }

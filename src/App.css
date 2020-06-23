@@ -47,7 +47,6 @@ body {
 
 .container {
     margin: 0 2vw;
-    height: 75vh;
     width: 93%;
     background: var(--bg-teritary);
     transition: var(--tran-primary);
