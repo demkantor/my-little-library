@@ -27,8 +27,8 @@
     top: 0;
     width: 100%;
     background: var(--bg-teritary);
-    margin-left: 15vw;
-    height: 10vw;
+    margin-left: 8em;
+    height: 5em;
     z-index: 2;
 }
 
@@ -53,7 +53,7 @@
     padding: 1em;
     text-decoration: none;
     list-style-type: none;
-    margin: .5em;
+    margin: 0 .5em;
 }
 
 .nav__btn {

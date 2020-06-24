@@ -4,7 +4,7 @@
     transition: var(--tran-primary);
     overflow: hidden;
     top: 0;
-    width: 15vw;
+    width: 8em;
     height: 100vh;
     border-right: .2em solid var(--bg-secondary);
     z-index: 2;

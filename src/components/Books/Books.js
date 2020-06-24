@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './Books.css';
 
@@ -14,12 +15,14 @@ const Books = () => {
         <div className="container">
             <h1 className="card-title">Books</h1>
             <div className="btn-container">
-                <button className="card-btn">
-                    <span className="material-icons btn-icon">
-                        library_add
-                    </span> 
-                    New
-                </button>
+                <Link to="/books/new">
+                    <button className="card-btn">
+                        <span className="material-icons btn-icon">
+                            library_add
+                        </span> 
+                        New
+                    </button>
+                </Link>
                 <button className="card-btn">
                     <span className="material-icons btn-icon">
                         delete
@@ -45,7 +48,7 @@ const Books = () => {
                             </span> 
                             Search
                         </button>
-                        <button className="card-btn white">
+                        <button className="card-btn white-btn">
                             <span className="material-icons btn-icon">
                                 refresh
                             </span> 
@@ -76,11 +79,11 @@ const Books = () => {
                                         <td>
                                             {book.status 
                                             ?
-                                            <button>
+                                            <button className="card-btn green-btn">
                                                 Available
                                             </button>
                                             :
-                                            <button>
+                                            <button className="card-btn red-btn">
                                                 Unavailable
                                             </button>
                                             }
@@ -90,38 +93,6 @@ const Books = () => {
                                 ))
                             : 'loading...'
                             }
-                            <tr>
-                                <td><input type="checkbox"/></td>
-                                <td><img src="/images/blink.png" alt="blink" className="" width="80px"/></td>
-                                <td>Title</td>
-                                <td>Author</td>
-                                <td>Status</td>
-                                <td>view edit delete</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"/></td>
-                                <td><img src="/images/god-delusion.png" alt="The God Delusion" className="" width="80px"/></td>
-                                <td>Title</td>
-                                <td>Author</td>
-                                <td>Status</td>
-                                <td>view edit delete</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"/></td>
-                                <td><img src="/images/blink.png" alt="blink" className="" width="80px"/></td>
-                                <td>Title</td>
-                                <td>Author</td>
-                                <td>Status</td>
-                                <td>view edit delete</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"/></td>
-                                <td><img src="/images/god-delusion.png" alt="The God Delusion" className="" width="80px"/></td>
-                                <td>Title</td>
-                                <td>Author</td>
-                                <td>Status</td>
-                                <td>view edit delete</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
