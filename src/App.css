@@ -32,12 +32,12 @@ body {
 
 .section-wrapper {
     position: relative;
-    margin-left: 15vw;
+    margin-left: 8em;
     width: 85vw;
 }
 
 .expanded {
-    margin-left: -15vw;
+    margin-left: -8em;
     transition: var(--tran-primary);
 }
 

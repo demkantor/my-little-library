@@ -120,3 +120,43 @@ tbody {
     overflow: scroll;
     height: 200px;
 }
+
+.image-upload-wrapper {
+    display: flex;
+    margin-left: 2em;
+}
+
+.img-label {
+    color: var(--bg-primary);
+    padding: 2em;
+}
+
+.image-upload {
+    position: relative;
+    display: flex;
+    height: 10em;
+    width: 10em;
+    margin: 2em 0;
+    border: 4px dashed var(--bg-primary);
+    text-align: center;
+    justify-content: center;
+}
+
+.image-preview {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+}
+
+.hide {
+    opacity: 0;
+}   
+
+.img-icon {
+    color: var(--bg-primary);
+    margin-top: 2em;
+}

@@ -16,6 +16,9 @@ const BookSchema = new mongoose.Schema({
     comments: { 
         body: String
     },
+    count: {
+        type: String
+    },
     status: {
         type: Boolean,
         default: true
