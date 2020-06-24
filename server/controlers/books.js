@@ -1,7 +1,7 @@
 const Book = require('../models/Book');
 
 // get all books
-exports.getBooks = async (req, res, next) => {
+exports.getAllBooks = async (req, res, next) => {
     try {
         console.log('in GET all books');
         const books = await Book.find();

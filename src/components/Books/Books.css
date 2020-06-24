@@ -24,6 +24,11 @@
     margin-right: .5em;
 }
 
+.card-btn:hover {
+    filter: contrast(2.5);
+    transition: var(--tran-primary);
+}
+
 .btn-icon{
     font-size: .8em;
     margin-right: .2em;
@@ -57,7 +62,6 @@
 .content-wrapper {
     display: flex;
     flex-direction: column;
-    width: min-content;
     width: 80%;
 }
 
@@ -95,4 +99,9 @@ thead th {
     top: 0;
     z-index: 2;
     background: #d9a68c;
+}
+
+tbody {
+    overflow: scroll;
+    height: 200px;
 }

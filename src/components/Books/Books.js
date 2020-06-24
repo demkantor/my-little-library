@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './Books.css';
 
 const Books = () => {
+    const dispatch = useDispatch();
+    const allBooks = useSelector(state => state.book.allBooks)
+
+    useEffect(() => {
+        dispatch({type: 'GET_ALL_BOOKS'});
+    }, [dispatch]);
+
     return (
         <div className="container">
             <h1 className="card-title">Books</h1>
@@ -58,6 +66,46 @@ const Books = () => {
                             </tr>
                         </thead>
                         <tbody>
+                            {allBooks ? 
+                                allBooks.map((book) => (
+                                    <tr key={book._id}>
+                                        <td><input type="checkbox"/></td>
+                                        <td><img src="/images/blink.png" alt={book.title} className="" width="80px"/></td>
+                                        <td>{book.title}</td>
+                                        <td>{book.author}</td>
+                                        <td>
+                                            {book.status 
+                                            ?
+                                            <button>
+                                                Available
+                                            </button>
+                                            :
+                                            <button>
+                                                Unavailable
+                                            </button>
+                                            }
+                                        </td>
+                                        <td>view edit delete</td>
+                                    </tr>
+                                ))
+                            : 'loading...'
+                            }
+                            <tr>
+                                <td><input type="checkbox"/></td>
+                                <td><img src="/images/blink.png" alt="blink" className="" width="80px"/></td>
+                                <td>Title</td>
+                                <td>Author</td>
+                                <td>Status</td>
+                                <td>view edit delete</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox"/></td>
+                                <td><img src="/images/god-delusion.png" alt="The God Delusion" className="" width="80px"/></td>
+                                <td>Title</td>
+                                <td>Author</td>
+                                <td>Status</td>
+                                <td>view edit delete</td>
+                            </tr>
                             <tr>
                                 <td><input type="checkbox"/></td>
                                 <td><img src="/images/blink.png" alt="blink" className="" width="80px"/></td>
