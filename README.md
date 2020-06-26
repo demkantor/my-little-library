@@ -4,6 +4,7 @@
 #### built with
     react
     node
+    express
     mongoDB
     JavaScript
 
