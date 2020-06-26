@@ -10,14 +10,25 @@ const NewBook = ({ history }) => {
     const [author, setAuthor] = useState('');
     const [copies, setCopies] = useState('');
     const [image, setImage] = useState('');
+    const [imageName, setImageName] = useState('');
+    const [preview, setPreview] = useState(null);
     const [errors, setErrors] = useState('');
     const dispatch = useDispatch();
+
+    const handleImage = (e) => {
+        setImage(e.target.files[0]);
+        setImageName(e.target.files[0].name);
+        setPreview(URL.createObjectURL(e.target.files[0]));
+    };
 
     const resetForm = () => {
         setTitle('');
         setAuthor('');
         setCopies('');
         setErrors('');
+        setImage('');
+        setImageName('');
+        setPreview(null);
     };
 
     const saveBook = (event) => {
@@ -29,9 +40,21 @@ const NewBook = ({ history }) => {
         } else if(copies === ''){
             setErrors('Must have at least one copy!!');
         } else {
-            setErrors('Loading...');
-            dispatch({ type: 'ADD_BOOK', payload: { title, author, copies, image }});
-            history.push("/books");
+            if(image) {
+                const formData = new FormData();
+                formData.append('image', image);
+                formData.append('imageName', imageName);
+                formData.append('author', author);
+                formData.append('title', title);
+                formData.append('copies', copies);
+                setErrors('Loading...');
+                dispatch({ type: 'ADD_BOOK', payload: {send: formData, history }});
+                // history.push("/books");
+            } else {
+                setErrors('Loading...');
+                dispatch({ type: 'ADD_BOOK', payload: { send: {title, author, copies }, history }});
+                // history.push("/books");
+            };
         };
     };
 
@@ -59,13 +82,22 @@ const NewBook = ({ history }) => {
                             value={copies}
                             onChange={(event)=>{setCopies(event.target.value)}} />
                         <div className="image-upload-wrapper">
+                            {imageName 
+                            ?
+                            <label 
+                                className="img-label"
+                                htmlFor="image-upload">
+                                    {imageName}
+                            </label>
+                            :
                             <label 
                                 className="img-label"
                                 htmlFor="image-upload">
                                     Upload Image
                             </label>
+                            }
                             <div className="image-upload">
-                                <span className="material-icons img-icon">
+                                <span className={preview ? "remove" : "material-icons img-icon"}>
                                         add
                                     </span> 
                                 <input
@@ -73,8 +105,11 @@ const NewBook = ({ history }) => {
                                     name="image-upload"
                                     accept=".png, .jpg, .jpeg"
                                     className="image-preview hide"
-                                    value={image}
-                                    onChange={(event)=>{setImage(event.target.value)}} />
+                                    // value={image}
+                                    onChange={handleImage} />
+                                {preview &&
+                                    <img src={preview} alt='preview' width="300px"/>
+                                }
                             </div>
                         </div>
                     </form>

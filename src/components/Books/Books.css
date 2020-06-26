@@ -156,6 +156,10 @@ tbody {
     opacity: 0;
 }   
 
+.remove {
+    display: none;
+}
+
 .img-icon {
     color: var(--bg-primary);
     margin-top: 2em;

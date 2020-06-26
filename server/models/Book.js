@@ -16,7 +16,13 @@ const BookSchema = new mongoose.Schema({
     comments: { 
         body: String
     },
-    count: {
+    copies: {
+        type: String
+    },
+    image: {
+        type: String
+    },
+    imageName: {
         type: String
     },
     status: {

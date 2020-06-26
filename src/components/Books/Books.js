@@ -5,7 +5,7 @@ import './Books.css';
 
 const Books = () => {
     const dispatch = useDispatch();
-    const allBooks = useSelector(state => state.book.allBooks)
+    const allBooks = useSelector(state => state.book.allBooks);
 
     useEffect(() => {
         dispatch({type: 'GET_ALL_BOOKS'});
@@ -73,7 +73,7 @@ const Books = () => {
                                 allBooks.map((book) => (
                                     <tr key={book._id}>
                                         <td><input type="checkbox"/></td>
-                                        <td><img src="/images/blink.png" alt={book.title} className="" width="80px"/></td>
+                                        <td><img src={book.image} alt={book.title} className="" width="80px"/></td>
                                         <td>{book.title}</td>
                                         <td>{book.author}</td>
                                         <td>
