@@ -11,6 +11,10 @@ const Books = () => {
         dispatch({type: 'GET_ALL_BOOKS'});
     }, [dispatch]);
 
+    const handleSingleCheck = (id) => {
+        console.log('check', id)
+    };
+
     return (
         <div className="container">
             <h1 className="card-title">Books</h1>
@@ -72,7 +76,7 @@ const Books = () => {
                             {allBooks ? 
                                 allBooks.map((book) => (
                                     <tr key={book._id}>
-                                        <td><input type="checkbox"/></td>
+                                        <td onChange={()=>handleSingleCheck(book._id)}><input type="checkbox"/></td>
                                         <td><img src={book.image} alt={book.title} className="" width="80px"/></td>
                                         <td>{book.title}</td>
                                         <td>{book.author}</td>

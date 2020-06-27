@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import ImageUpload from '../ImageUpload/ImageUpload';
 import './Books.css';
 
 
@@ -49,11 +50,9 @@ const NewBook = ({ history }) => {
                 formData.append('copies', copies);
                 setErrors('Loading...');
                 dispatch({ type: 'ADD_BOOK', payload: {send: formData, history }});
-                // history.push("/books");
             } else {
                 setErrors('Loading...');
                 dispatch({ type: 'ADD_BOOK', payload: { send: {title, author, copies }, history }});
-                // history.push("/books");
             };
         };
     };
@@ -81,37 +80,11 @@ const NewBook = ({ history }) => {
                             placeholder="Number of Copies" 
                             value={copies}
                             onChange={(event)=>{setCopies(event.target.value)}} />
-                        <div className="image-upload-wrapper">
-                            {imageName 
-                            ?
-                            <label 
-                                className="img-label"
-                                htmlFor="image-upload">
-                                    {imageName}
-                            </label>
-                            :
-                            <label 
-                                className="img-label"
-                                htmlFor="image-upload">
-                                    Upload Image
-                            </label>
-                            }
-                            <div className="image-upload">
-                                <span className={preview ? "remove" : "material-icons img-icon"}>
-                                        add
-                                    </span> 
-                                <input
-                                    type="file"
-                                    name="image-upload"
-                                    accept=".png, .jpg, .jpeg"
-                                    className="image-preview hide"
-                                    // value={image}
-                                    onChange={handleImage} />
-                                {preview &&
-                                    <img src={preview} alt='preview' width="300px"/>
-                                }
-                            </div>
-                        </div>
+                        <ImageUpload 
+                            imageName = {imageName}
+                            preview = {preview}
+                            handleImage = {handleImage}
+                            />
                     </form>
                     <div className="search-btn-container">
                         <button className="card-btn" onClick={saveBook}>
