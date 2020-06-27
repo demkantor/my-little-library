@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './Books.css';
@@ -7,12 +7,34 @@ const Books = () => {
     const dispatch = useDispatch();
     const allBooks = useSelector(state => state.book.allBooks);
 
+    const [title, setTitle] = useState('');
+    const [author, setAuthor] = useState('');
+    const [status, setStatus] = useState('');
+
     useEffect(() => {
         dispatch({type: 'GET_ALL_BOOKS'});
     }, [dispatch]);
 
+    const clearForm = () => {
+        setTitle('');
+        setAuthor('');
+        setStatus('');
+    };
+
+    const deleteSelected = () => {
+        console.log('deleteing this...');
+    };
+
+    const handleMainCheck = () => {
+        console.log('check all checkboxes');
+    };
+
     const handleSingleCheck = (id) => {
-        console.log('check', id)
+        console.log('check', id);
+    };
+
+    const search = () => {
+        console.log('searching db...', title, author, status);
     };
 
     return (
@@ -27,7 +49,7 @@ const Books = () => {
                         New
                     </button>
                 </Link>
-                <button className="card-btn">
+                <button className="card-btn" onClick={deleteSelected}>
                     <span className="material-icons btn-icon">
                         delete
                     </span> 
@@ -37,22 +59,33 @@ const Books = () => {
             <div className="content-wrapper">
                 <div className="books-search">
                     <form className="books-form">
-                        <input type="text" placeholder="Title" />
-                        <input type="text" placeholder="Author" />
-                        <select name="status">
-                            <option value="">--</option>
-                            <option value="available">Available</option>
-                            <option value="unavailable">Unavailable</option>
+                        <input 
+                            type="text" 
+                            placeholder="Title" 
+                            value={title} 
+                            onChange={(event)=>{setTitle(event.target.value)}} />
+                        <input 
+                            type="text" 
+                            placeholder="Author" 
+                            value={author} 
+                            onChange={(event)=>{setAuthor(event.target.value)}} />
+                        <select 
+                            name="status"
+                            value={status}
+                            onChange={(event)=>{setStatus(event.target.value)}}>
+                                <option value="">--</option>
+                                <option value="available">Available</option>
+                                <option value="unavailable">Unavailable</option>
                         </select> 
                     </form>
                     <div className="search-btn-container">
-                        <button className="card-btn">
+                        <button className="card-btn" onClick={search}>
                             <span className="material-icons btn-icon">
                                 search
                             </span> 
                             Search
                         </button>
-                        <button className="card-btn white-btn">
+                        <button className="card-btn white-btn" onClick={clearForm}>
                             <span className="material-icons btn-icon">
                                 refresh
                             </span> 
@@ -64,7 +97,7 @@ const Books = () => {
                     <table>
                         <thead>
                             <tr>
-                                <th><input type="checkbox"/></th>
+                                <th onChange={handleMainCheck}><input type="checkbox"/></th>
                                 <th></th>
                                 <th>Title</th>
                                 <th>Author</th>

@@ -4,7 +4,6 @@ import ImageUpload from '../ImageUpload/ImageUpload';
 import './Books.css';
 
 
-
 const NewBook = ({ history }) => {
 
     const [title, setTitle] = useState('');

@@ -29,7 +29,7 @@
     background: var(--bg-teritary);
     margin-left: 8em;
     height: 5em;
-    z-index: 2;
+    z-index: 3;
 }
 
 .navbar {
