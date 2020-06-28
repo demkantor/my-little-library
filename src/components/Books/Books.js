@@ -10,6 +10,8 @@ const Books = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [status, setStatus] = useState('');
+    const [errors, setErrors] = useState('');
+    const [checked, setChecked] = useState([]);
 
     useEffect(() => {
         dispatch({type: 'GET_ALL_BOOKS'});
@@ -21,19 +23,30 @@ const Books = () => {
         setStatus('');
     };
 
-    const deleteSelected = () => {
-        console.log('deleteing this...');
+    const deleteSelected = (id) => {
+        if(typeof(id) !== "string"){
+            console.log('deleteing item(s) by checkmark...');
+        } else {
+            console.log('deleteing this...', id);
+        }
+        
     };
 
     const handleMainCheck = () => {
-        console.log('check all checkboxes');
+        // console.log(event.target.attributes)
+        const childChecks = document.getElementsByName('singleCheck');
+        childChecks.forEach((child) => child.toggleAttribute("checked"))
     };
 
     const handleSingleCheck = (id) => {
         console.log('check', id);
+        setChecked([...checked, id]);
     };
 
     const search = () => {
+        if(title === "" && author === "" && status === ""){
+            setErrors('Must have criteria in at least one field!');
+        }
         console.log('searching db...', title, author, status);
     };
 
@@ -92,12 +105,17 @@ const Books = () => {
                             Reset
                         </button>
                     </div>
+                    <div className="error form-errors">
+                        <h3>
+                            {errors}
+                        </h3>
+                </div>
                 </div>
                 <div className="books-table">
                     <table>
                         <thead>
                             <tr>
-                                <th onChange={handleMainCheck}><input type="checkbox"/></th>
+                                <th><input type="checkbox" onChange={handleMainCheck}/></th>
                                 <th></th>
                                 <th>Title</th>
                                 <th>Author</th>
@@ -109,8 +127,13 @@ const Books = () => {
                             {allBooks ? 
                                 allBooks.map((book) => (
                                     <tr key={book._id}>
-                                        <td onChange={()=>handleSingleCheck(book._id)}><input type="checkbox"/></td>
-                                        <td><img src={book.image} alt={book.title} className="" width="80px"/></td>
+                                        <td>
+                                            <input
+                                                type="checkbox" 
+                                                name="singleCheck"
+                                                onChange={()=>handleSingleCheck(book._id)}/>
+                                        </td>
+                                        <td><img src={book.image} alt={book.title} className="" width="80px" height="80px"/></td>
                                         <td>{book.title}</td>
                                         <td>{book.author}</td>
                                         <td>
@@ -125,7 +148,23 @@ const Books = () => {
                                             </button>
                                             }
                                         </td>
-                                        <td>view edit delete</td>
+                                        <td>
+                                            <Link to="/books/book._id">
+                                                <button className="table-btn">
+                                                    view
+                                                </button>
+                                            </Link>
+                                            <Link to="/books/book._id">
+                                                <button className="table-btn">
+                                                    edit
+                                                </button>
+                                            </Link>
+                                            <button 
+                                                className="table-btn"
+                                                onClick={()=>deleteSelected(book._id)}>
+                                                    delete
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                             : 'loading...'

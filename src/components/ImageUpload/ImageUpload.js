@@ -30,7 +30,7 @@ const ImageUpload = ({ imageName, preview, handleImage}) => {
                 // value={image}
                 onChange={handleImage} />
             {preview &&
-                <img src={preview} alt='preview' width="300px"/>
+                <img className="" src={preview} alt='preview' width="100%" height="100%"/>
             }
         </div>
     </div>
