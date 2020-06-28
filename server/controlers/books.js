@@ -23,26 +23,27 @@ exports.addBook = async (req, res, next) => {
     try {
         if (!req.files) {
             console.log('in POST new book with: ', req.body);
-            const book = await Book.create(req.body);
+            await Book.create(req.body);
             return res.status(201).json({
                 success: true,
-                data: book
+                data: 'new book added!'
             });
         } else {
-            console.log('in POST new book with: ', req.body);
+            console.log('in POST new book and image with: ', req.body);
             const image = req.files.image;
             const uploadPath = `${process.env.FILE_UPLOAD_PATH}/${image.name}`;
             const displayPath = `images/${image.name}`;
             req.body.image = displayPath;
-            image.mv(uploadPath, async error => {
+            image.mv(uploadPath, async (error) => {
                 if (error) {
                   console.error(error);
                   return res.status(500).json({ error });
                 }
-                const book = await Book.create(req.body);
+                await Book.create(req.body);
+                console.log('added successfully!')
                 return res.status(201).json({
                     success: true,
-                    data: book
+                    data: 'book & image added!'
                 });
             });
         }
@@ -77,6 +78,7 @@ exports.addBookImage = async (req, res, next) => {
 
 // Remove a book from db
 exports.removeBook = async (req, res, next) => {
+    console.error('Deleteing book by id:', req.params.id);
     try {
         const book = await Book.findById(req.params.id);
         if (!book) {

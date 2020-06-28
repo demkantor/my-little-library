@@ -62,7 +62,7 @@ const AllBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected }) =
                                     </Link>
                                     <button 
                                         className="table-btn"
-                                        onClick={()=>deleteSelected(book._id)}>
+                                        onClick={()=>deleteSelected(book._id, book.title)}>
                                             delete
                                     </button>
                                 </td>

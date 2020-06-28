@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
+
 import AllBooksTable from './AllBooksTable';
 import './Books.css';
 
 const Books = () => {
+    const dispatch = useDispatch();
     
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -17,10 +21,51 @@ const Books = () => {
         setStatus('');
     };
 
-    const deleteSelected = (id) => {
+    const deleteSelected = (id, title) => {
         if(typeof(id) !== "string"){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                    'Deleted!',
+                    'This book has been deleted.',
+                    'success'
+                    )
+                }
+            });
             console.log('deleteing item(s) by checkmark...');
         } else {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `Permanently delete ${title} from your collection?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        `${title} has been removed from your collection!`,
+                        'success'
+                    );
+                    dispatch({type: 'REMOVE_BOOK', payload: id});
+                } else {
+                    Swal.fire(
+                        'Not Deleted',
+                        `${title} is still in your collection`,
+                        'warning'
+                    );
+                };
+            });
             console.log('deleteing this...', id);
         };
     };
