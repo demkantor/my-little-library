@@ -1,7 +1,7 @@
 const Book = require('../models/Book');
 
 
-// get all books
+// GET all books
 exports.getAllBooks = async (req, res, next) => {
     try {
         console.log('in GET all books');
@@ -18,7 +18,48 @@ exports.getAllBooks = async (req, res, next) => {
     };
 };
 
-// Add a book to the library
+// GETs book(s) by search criteria
+exports.searchBooks = async (req, res, next) => {
+    console.log('in GET book(s) by search criteria', req.body);
+    try {
+        if(req.body.title !== '') {
+            const books = await Book.find({ title: req.body.title }).sort({ title: 1 });
+            return res.status(200).json({
+                success: true,
+                count: books.length,
+                data: books
+            });
+        } else if (req.body.author !== '') {
+            const books = await Book.find({ author: req.body.author }).sort({ title: 1 });
+            return res.status(200).json({
+                success: true,
+                count: books.length,
+                data: books
+            });
+        } else {
+            if(req.body.status === 'available') {
+                const books = await Book.find({ status: true }).sort({ title: 1 });
+                return res.status(200).json({
+                    success: true,
+                    count: books.length,
+                    data: books
+                });
+            } else {
+                const books = await Book.find({ status: false }).sort({ title: 1 });
+                return res.status(200).json({
+                    success: true,
+                    count: books.length,
+                    data: books
+                });
+            };
+        };
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Server error fetching book(s) by search, please try again...' });
+    };
+};
+
+// POST a book to the library
 exports.addBook = async (req, res, next) => {
     try {
         if (!req.files) {

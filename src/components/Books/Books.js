@@ -97,7 +97,10 @@ const Books = () => {
     const search = () => {
         if(title === "" && author === "" && status === ""){
             setErrors('Must have criteria in at least one field!');
-        };
+        } else {
+            const objectToSend = { title, author, status }
+            dispatch({ type: 'SEARCH_BOOKS', payload: objectToSend });
+        }
         console.log('searching db...', title, author, status);
     };
 

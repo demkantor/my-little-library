@@ -1,17 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const { addBook, addBookImage, getAllBooks, removeBook, removeMany } = require('../controlers/books');
+const { 
+    addBook, 
+    addBookImage, 
+    getAllBooks, 
+    removeBook, 
+    removeMany, 
+    searchBooks 
+} = require('../controlers/books');
 
 
 // book routes
 router
 .route('/')
-
 .post(addBook)
 
 router
 .route('/all')
 .get(getAllBooks)
+
+router
+.route('/search')
+.post(searchBooks)
 
 router
 .route('/image/:id')

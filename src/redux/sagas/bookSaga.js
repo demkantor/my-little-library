@@ -7,6 +7,7 @@ function* userSaga() {
     yield takeEvery("ADD_BOOK", addBook);
     yield takeEvery('REMOVE_BOOK', removeBook);
     yield takeEvery('REMOVE_MANY_BOOKS', removeManyBooks);
+    yield takeEvery('SEARCH_BOOKS', searchBooks);
 };
 
 // fetchs all books from database
@@ -54,10 +55,22 @@ function* removeBook(remove) {
 function* removeManyBooks(remove) {
     console.log("in saga DELETE multiple books with: ", remove.payload);
     try {
-        yield axios.delete(`/api/books/remove/many`, {data: remove.payload});
+        yield axios.delete(`/api/books/remove/many`, { data: remove.payload });
         yield put({ type: 'GET_ALL_BOOKS' })
     } catch(error){
         console.error("Error with DELETE multiple books saga:", error);
+    };
+};
+
+// GETS book(s) from database by search criteria
+function* searchBooks(criteria) {
+    yield console.log("in GET book(s) by criteria saga:", criteria.payload);
+    try {
+        const fetchBooks = yield axios.post(`/api/books/search`, criteria.payload);
+
+        yield put({ type: "SET_THESE_BOOKS", payload: fetchBooks.data.data });
+    } catch (error) {
+        console.log("Error with GET all books saga:", error);
     };
 };
 
