@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import ImageUpload from '../ImageUpload/ImageUpload';
 import './Books.css';
 
 const EditBook = ({ history }) => {
@@ -23,19 +25,26 @@ const EditBook = ({ history }) => {
             setTitle(thisBook.title);
             setAuthor(thisBook.author);
             setCopies(thisBook.copies);
+            setPreview(`/${thisBook.image}`);
         };
 
         loadForm();
-    }, [dispatch, thisBook.title, thisBook.author, thisBook.copies ]);
+    }, [dispatch, thisBook.title, thisBook.author, thisBook.copies, thisBook.image ]);
+
+    const handleImage = (e) => {
+        setImage(e.target.files[0]);
+        setImageName(e.target.files[0].name);
+        setPreview(URL.createObjectURL(e.target.files[0]));
+    };
 
     const resetForm = () => {
-        setTitle('');
-        setAuthor('');
-        setCopies('');
+        setTitle(thisBook.title);
+        setAuthor(thisBook.author);
+        setCopies(thisBook.copies);
         setErrors('');
-        setImage('');
-        setImageName('');
-        setPreview(null);
+        setImage(thisBook.image);
+        setImageName(thisBook.imageName);
+        setPreview(`/${thisBook.image}`);
     };
 
     const saveBook = (event) => {
@@ -70,20 +79,24 @@ const EditBook = ({ history }) => {
                         <input 
                             type="text" 
                             placeholder="Title"  
-                            value={title}
+                            value={title || ""}
                             onChange={(event)=>setTitle(event.target.value)} />
                         <input 
                             type="text" 
                             placeholder="Author" 
-                            value={author}
+                            value={author || ""}
                             onChange={(event)=>{setAuthor(event.target.value)}} />
                         <input 
                             type="number"
                             min="1"
                             name="copies"
                             placeholder="copies"
-                            value={copies}
+                            value={copies || ""}
                             onChange={(event)=>{setCopies(event.target.value)}} />
+                        <ImageUpload 
+                            imageName = {imageName}
+                            preview = {preview}
+                            handleImage = {handleImage} />
                     </form>
                     :
                     <p>loading...</p>
@@ -104,7 +117,7 @@ const EditBook = ({ history }) => {
                     </div>
                     <div className="error form-errors">
                         <h3>
-                            {''}
+                            {errors}
                         </h3>
                     </div>
                 </div>
