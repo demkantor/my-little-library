@@ -21,7 +21,18 @@ const theseBooks = (state = [], action) => {
     };
 };
 
+// stores a single book requested to edit/view
+const thisBook = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_THIS_BOOK':
+            return state = action.payload;
+        default:
+            return state;
+    };
+};
+
 export default combineReducers({
     allBooks,
-    theseBooks
+    theseBooks,
+    thisBook
 });

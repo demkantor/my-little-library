@@ -4,6 +4,7 @@ const {
     addBook, 
     addBookImage, 
     getAllBooks, 
+    getThisBook,
     removeBook, 
     removeMany, 
     searchBooks 
@@ -18,6 +19,10 @@ router
 router
 .route('/all')
 .get(getAllBooks)
+
+router
+.route('/this/:title')
+.get(getThisBook)
 
 router
 .route('/search')

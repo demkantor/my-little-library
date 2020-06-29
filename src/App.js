@@ -12,17 +12,19 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Books from './components/Books/Books';
 import NewBook from './components/Books/NewBook';
+import EditBook from './components/Books/EditBook';
 
 
 class App extends Component {
 
   state = {
     expandSide: false
-  }
+  };
 
+  // handles viewport dependending on sidebar open
   handleExpand = () => {
     this.setState({expandSide: !this.state.expandSide})
-  }
+  };
 
   render() {
     const { expandSide } = this.state;
@@ -43,6 +45,7 @@ class App extends Component {
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/books" component={Books} />
                 <Route exact path="/books/new" component={NewBook} />
+                <Route exact path="/books/view/:title" component={EditBook} />
 
                 {/* 404 page */}
                 <Route render={() => 

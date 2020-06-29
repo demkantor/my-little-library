@@ -18,19 +18,36 @@ exports.getAllBooks = async (req, res, next) => {
     };
 };
 
+// GET a single book
+exports.getThisBook = async (req, res, next) => {
+    try {
+        console.log('in GET this book', req.params.title);
+        const books = await Book.find({ title: req.params.title }).collation( { locale: 'en', strength: 2 } ).sort({ title: 1 });
+
+        return res.status(200).json({
+            success: true,
+            count: books.length,
+            data: books
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Server error fetching books, please try again...' });
+    };
+};
+
 // GETs book(s) by search criteria
 exports.searchBooks = async (req, res, next) => {
     console.log('in GET book(s) by search criteria', req.body);
     try {
         if(req.body.title !== '') {
-            const books = await Book.find({ title: req.body.title }).sort({ title: 1 });
+            const books = await Book.find({ title: req.body.title }).collation( { locale: 'en', strength: 2 } ).sort({ title: 1 });
             return res.status(200).json({
                 success: true,
                 count: books.length,
                 data: books
             });
         } else if (req.body.author !== '') {
-            const books = await Book.find({ author: req.body.author }).sort({ title: 1 });
+            const books = await Book.find({ author: req.body.author }).collation( { locale: 'en', strength: 2 } ).sort({ title: 1 });
             return res.status(200).json({
                 success: true,
                 count: books.length,

@@ -47,12 +47,12 @@ const SearchedBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected
                                     }
                                 </td>
                                 <td>
-                                    <Link to="/books/book._id">
+                                    <Link to={`/books/view/${book.title}`}>
                                         <button className="table-btn">
                                             view
                                         </button>
                                     </Link>
-                                    <Link to="/books/book._id">
+                                    <Link to={`/books/view/${book.title}`}>
                                         <button className="table-btn">
                                             edit
                                         </button>

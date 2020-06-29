@@ -3,8 +3,9 @@ import { takeEvery, put } from "redux-saga/effects";
 
 // these sagas take the dispatch and runs them before they get to the reducers
 function* userSaga() {
-    yield takeEvery("GET_ALL_BOOKS", getAllBooks);
     yield takeEvery("ADD_BOOK", addBook);
+    yield takeEvery("GET_ALL_BOOKS", getAllBooks);
+    yield takeEvery("GET_THIS_BOOK", getThisBook);
     yield takeEvery('REMOVE_BOOK', removeBook);
     yield takeEvery('REMOVE_MANY_BOOKS', removeManyBooks);
     yield takeEvery('SEARCH_BOOKS', searchBooks);
@@ -12,13 +13,23 @@ function* userSaga() {
 
 // fetchs all books from database
 function* getAllBooks() {
-    yield console.log("in Get all books saga");
+    yield console.log("in GET all books saga");
     try {
         const fetchBooks = yield axios.get(`/api/books/all`);
-
         yield put({ type: "SET_ALL_BOOKS", payload: fetchBooks.data.data });
     } catch (error) {
         console.log("Error with GET all books saga:", error);
+    };
+};
+
+// fetchs single book from database
+function* getThisBook(title) {
+    yield console.log("in GET this book saga");
+    try {
+        const fetchBook = yield axios.get(`/api/books/this/${title.payload}`);
+        yield put({ type: "SET_THIS_BOOK", payload: fetchBook.data.data[0] });
+    } catch (error) {
+        console.log("Error with GET this book saga:", error);
     };
 };
 
