@@ -32,6 +32,7 @@ const AllBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected }) =
                                     <input
                                         type="checkbox" 
                                         name="singleCheck"
+                                        data-id={book._id}
                                         onChange={()=>handleSingleCheck(book._id)}/>
                                 </td>
                                 <td><img src={book.image} alt={book.title} className="" width="80px" height="80px"/></td>

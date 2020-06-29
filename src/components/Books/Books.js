@@ -21,6 +21,7 @@ const Books = () => {
         setStatus('');
     };
 
+    // calls didpatch to remove one book or multiple books
     const deleteSelected = (id, title) => {
         console.log(checked);
         if(typeof(id) !== "string"){
@@ -38,7 +39,8 @@ const Books = () => {
                     'Deleted!',
                     'This book has been deleted.',
                     'success'
-                    )
+                    );
+                    dispatch({ type: 'REMOVE_MANY_BOOKS', payload: checked });
                 }
             });
             console.log('deleteing item(s) by checkmark...');
@@ -58,7 +60,7 @@ const Books = () => {
                         `${title} has been removed from your collection!`,
                         'success'
                     );
-                    dispatch({type: 'REMOVE_BOOK', payload: id});
+                    dispatch({ type: 'REMOVE_BOOK', payload: id });
                 } else {
                     Swal.fire(
                         'Not Deleted',
@@ -71,10 +73,14 @@ const Books = () => {
         };
     };
 
-    const handleMainCheck = () => {
-        // console.log(event.target.attributes)
+    const handleMainCheck = (event) => {
+        console.log(checked);
+        console.log(event.target.value);
         const childChecks = document.getElementsByName('singleCheck');
         childChecks.forEach((child) => child.toggleAttribute("checked"));
+        const newList = []
+        childChecks.forEach((child) => newList.push(child.dataset.id));
+        setChecked(newList);
     };
 
     const handleSingleCheck = (id) => {

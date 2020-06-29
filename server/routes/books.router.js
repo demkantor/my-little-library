@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addBook, addBookImage, getAllBooks, removeBook } = require('../controlers/books');
+const { addBook, addBookImage, getAllBooks, removeBook, removeMany } = require('../controlers/books');
 
 
 // book routes
@@ -18,7 +18,11 @@ router
 .put(addBookImage)
 
 router
-.route('/remove/:id')
+.route('/remove/one/:id')
 .delete(removeBook)
+
+router
+.route('/remove/many')
+.delete(removeMany)
 
 module.exports = router;

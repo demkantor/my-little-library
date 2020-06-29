@@ -78,7 +78,7 @@ exports.addBookImage = async (req, res, next) => {
 
 // Remove a book from db
 exports.removeBook = async (req, res, next) => {
-    console.error('Deleteing book by id:', req.params.id);
+    console.log('Deleteing book by id:', req.params.id);
     try {
         const book = await Book.findById(req.params.id);
         if (!book) {
@@ -94,5 +94,21 @@ exports.removeBook = async (req, res, next) => {
     } catch (error) {
         console.error('error removing book from library', error);
         return res.status(500).json({ error: 'Server error while deleting book, please try again...' });
+    };
+};
+
+// Removes multiple books from db
+exports.removeMany = async (req, res, next) => {
+    console.log('Deleteing multiple books by id:', req.body);
+    try {
+        const list = req.body
+        await Book.deleteMany({ _id: { $in: list} });
+        res.status(200).json({ 
+            success: true, 
+            data: 'books all deleted successfully' 
+        });
+    } catch (error) {
+        console.error('error removing multiple books from library', error);
+        return res.status(500).json({ error: 'Server error while deleting multiple books, please try again...' });
     };
 };
