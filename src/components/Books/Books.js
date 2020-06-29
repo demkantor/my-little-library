@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import Swal from 'sweetalert2';
 
 import AllBooksTable from './AllBooksTable';
+import SearchedBooksTable from './SearchedBooksTable';
 import './Books.css';
 
 const Books = () => {
@@ -14,8 +15,10 @@ const Books = () => {
     const [status, setStatus] = useState('');
     const [errors, setErrors] = useState('');
     const [checked, setChecked] = useState([]);
+    const [searched, setSearched] = useState(false);
 
     const clearForm = () => {
+        setSearched(false);
         setTitle('');
         setAuthor('');
         setStatus('');
@@ -100,9 +103,11 @@ const Books = () => {
         } else {
             const objectToSend = { title, author, status }
             dispatch({ type: 'SEARCH_BOOKS', payload: objectToSend });
+            setSearched(true);
         }
         console.log('searching db...', title, author, status);
     };
+
 
     return (
         <div className="container">
@@ -165,10 +170,19 @@ const Books = () => {
                         </h3>
                     </div>
                 </div>
+                {searched === true
+                ?
+                <SearchedBooksTable
+                    handleMainCheck={handleMainCheck}
+                    handleSingleCheck={handleSingleCheck}
+                    deleteSelected={deleteSelected} />
+                :
                 <AllBooksTable 
                     handleMainCheck={handleMainCheck}
                     handleSingleCheck={handleSingleCheck}
-                    deleteSelected={deleteSelected}/>
+                    deleteSelected={deleteSelected} />
+                }
+
             </div>
         </div>
     );
