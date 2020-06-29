@@ -22,6 +22,7 @@ const Books = () => {
     };
 
     const deleteSelected = (id, title) => {
+        console.log(checked);
         if(typeof(id) !== "string"){
             Swal.fire({
                 title: 'Are you sure?',
@@ -79,7 +80,7 @@ const Books = () => {
     const handleSingleCheck = (id) => {
         console.log('check', id);
         if(checked.includes(id)) {
-            let newList = checked.filter(box => box.indexOf(id) !== -1);
+            let newList = checked.filter(box => box.indexOf(id) === -1);
             setChecked(newList);
         }else {
             setChecked([...checked, id]);
@@ -106,7 +107,7 @@ const Books = () => {
                         New
                     </button>
                 </Link>
-                <button className="card-btn" onClick={deleteSelected}>
+                <button className="card-btn" disabled={checked.length < 1} onClick={deleteSelected}>
                     <span className="material-icons btn-icon">
                         delete
                     </span> 

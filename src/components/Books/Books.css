@@ -7,7 +7,6 @@
 .btn-container {
     margin-left: 2em;
     display: flex;
-    
 }
 
 .card-btn {
@@ -27,6 +26,12 @@
 .card-btn:hover {
     filter: contrast(2.5);
     transition: var(--tran-primary);
+}
+
+.card-btn:disabled {
+    background: var(--bg-teritary);
+    color: var(--text-secondary);
+    cursor: not-allowed;
 }
 
 .btn-icon{

@@ -15,7 +15,7 @@ exports.getAllBooks = async (req, res, next) => {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Server error fetching books, please try again...' });
-    }
+    };
 };
 
 // Add a book to the library

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import ImageUpload from '../ImageUpload/ImageUpload';
 import './Books.css';
 
@@ -13,6 +14,7 @@ const NewBook = ({ history }) => {
     const [imageName, setImageName] = useState('');
     const [preview, setPreview] = useState(null);
     const [errors, setErrors] = useState('');
+
     const dispatch = useDispatch();
 
     const handleImage = (e) => {
@@ -107,7 +109,7 @@ const NewBook = ({ history }) => {
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default NewBook;
