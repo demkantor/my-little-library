@@ -11,6 +11,7 @@ const EditBook = ({ history }) => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [copies, setCopies] = useState('');
+    const [bookId, setBookId] = useState('');
     const [image, setImage] = useState('');
     const [imageName, setImageName] = useState('');
     const [preview, setPreview] = useState(null);
@@ -25,11 +26,12 @@ const EditBook = ({ history }) => {
             setTitle(thisBook.title);
             setAuthor(thisBook.author);
             setCopies(thisBook.copies);
+            setBookId(thisBook._id);
             setPreview(`/${thisBook.image}`);
         };
 
         loadForm();
-    }, [dispatch, thisBook.title, thisBook.author, thisBook.copies, thisBook.image ]);
+    }, [dispatch, thisBook.title, thisBook.author, thisBook.copies, thisBook.image, thisBook._id ]);
 
     const handleImage = (e) => {
         setImage(e.target.files[0]);
@@ -37,6 +39,7 @@ const EditBook = ({ history }) => {
         setPreview(URL.createObjectURL(e.target.files[0]));
     };
 
+    // reset updates form to redux state instead of clearing it
     const resetForm = () => {
         setTitle(thisBook.title);
         setAuthor(thisBook.author);
@@ -57,10 +60,10 @@ const EditBook = ({ history }) => {
             formData.append('title', title);
             formData.append('copies', copies);
             setErrors('Loading...');
-            dispatch({ type: 'EDIT_BOOK', payload: {send: formData, history }});
+            dispatch({ type: 'EDIT_BOOK', payload: {send: formData, history, bookId }});
         } else {
             setErrors('Loading...');
-            dispatch({ type: 'EDIT_BOOK', payload: { send: {title, author, copies }, history }});
+            dispatch({ type: 'EDIT_BOOK', payload: { send: {title, author, copies }, history, bookId }});
         };
     };
 

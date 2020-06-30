@@ -4,6 +4,7 @@ import { takeEvery, put } from "redux-saga/effects";
 // these sagas take the dispatch and runs them before they get to the reducers
 function* userSaga() {
     yield takeEvery("ADD_BOOK", addBook);
+    yield takeEvery("EDIT_BOOK", editBook);
     yield takeEvery("GET_ALL_BOOKS", getAllBooks);
     yield takeEvery("GET_THIS_BOOK", getThisBook);
     yield takeEvery('REMOVE_BOOK', removeBook);
@@ -38,16 +39,30 @@ function* addBook(book) {
   yield console.log("in POST new book saga with", book.payload);
     try {
         if(book.payload.send.image) {
-            console.log('here up');
             const config = { headers: {'Content-Type': 'multipart/form-data'} }
             yield axios.post(`/api/books`, book.payload.send, config);
         } else {
-            console.log('here down');
             yield axios.post(`/api/books`, book.payload.send);
         }
         yield book.payload.history.push('/books');
     } catch (error) {
         console.error("Error with POST new book saga:", error);
+    };
+};
+
+// edit book by id
+function* editBook(details){
+    console.log("We are here in edit book saga", details.payload.bookId);
+    try {
+        if(details.payload.send.image) {
+            const config = { headers: {'Content-Type': 'multipart/form-data'} }
+            yield axios.put(`/api/books/edit/${details.payload.bookId}`, details.payload.send, config);
+        } else {
+            yield axios.put(`/api/books/edit/${details.payload.bookId}`, details.payload.send);
+        }     
+        yield details.payload.history.push('/books');
+    } catch(error){
+        console.error('error in saga detail edit:', error);
     };
 };
 
@@ -67,7 +82,7 @@ function* removeManyBooks(remove) {
     console.log("in saga DELETE multiple books with: ", remove.payload);
     try {
         yield axios.delete(`/api/books/remove/many`, { data: remove.payload });
-        yield put({ type: 'GET_ALL_BOOKS' })
+        yield put({ type: 'GET_ALL_BOOKS' });
     } catch(error){
         console.error("Error with DELETE multiple books saga:", error);
     };

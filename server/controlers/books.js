@@ -35,7 +35,7 @@ exports.getThisBook = async (req, res, next) => {
     };
 };
 
-// GETs book(s) by search criteria
+// GET book(s) by search criteria
 exports.searchBooks = async (req, res, next) => {
     console.log('in GET book(s) by search criteria', req.body);
     try {
@@ -104,7 +104,7 @@ exports.addBook = async (req, res, next) => {
                     data: 'book & image added!'
                 });
             });
-        }
+        };
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: 'Server error while adding book, please try again...' });
@@ -168,5 +168,44 @@ exports.removeMany = async (req, res, next) => {
     } catch (error) {
         console.error('error removing multiple books from library', error);
         return res.status(500).json({ error: 'Server error while deleting multiple books, please try again...' });
+    };
+};
+
+// Edit book by id
+exports.editBook = async (req, res, next) => {
+    console.log('EDIT book by id:', req.params.id, req.body);
+    const id = req.params.id;
+    const author = req.body.author;
+    const title = req.body.title;
+    const copies = req.body.copies;
+    try {
+        if (!req.files) {
+            console.log('in EDIT book with: ', req.params.id, req.body);
+            await Book.findByIdAndUpdate({ "_id": id }, { $set: { author, title, copies }}, { new: true });
+            return res.status(200).json({
+                success: true,
+                data: `Book with id ${req.params.id} has been edited successfully!`
+            });
+        } else {
+            console.log('in EDIT book and image with: ', req.params.id, req.body);
+            const image = req.files.image;
+            const uploadPath = `${process.env.FILE_UPLOAD_PATH}/${image.name}`;
+            const displayPath = `images/${image.name}`;
+            image.mv(uploadPath, async (error) => {
+                if (error) {
+                  console.error(error);
+                  return res.status(500).json({ error });
+                }
+                await Book.findByIdAndUpdate({ "_id": id }, { $set: { author, title, copies, "image": displayPath }}, { new: true });
+                console.log('added successfully!')
+                return res.status(200).json({
+                    success: true,
+                    data: `Book with id ${req.params.id} has been edited successfully!`
+                });
+            });
+        };
+    } catch (error) {
+        console.error(`error submitting edit for book with id: ${req.params.id} ,`, error);
+        return res.status(500).json({ error: 'Server error while editing book, please try again...' });
     };
 };

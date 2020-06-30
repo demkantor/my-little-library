@@ -3,6 +3,7 @@ const router = express.Router();
 const { 
     addBook, 
     addBookImage, 
+    editBook,
     getAllBooks, 
     getThisBook,
     removeBook, 
@@ -19,6 +20,10 @@ router
 router
 .route('/all')
 .get(getAllBooks)
+
+router
+.route('/edit/:id')
+.put(editBook)
 
 router
 .route('/this/:title')
