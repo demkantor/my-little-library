@@ -11,7 +11,25 @@
     display: flex;
 }
 
-.arrow {
-    margin-top: -.1em;
+.route-item {
+    font-size: 1em;
+    position: relative;
+    display: flex;
+}
+
+.route-link {
+    border: none;
+    text-decoration: none;
+    background: none;
+    cursor: pointer;
     font-size: 1.5em;
+    padding: 0;
+    margin: 0;
+    line-height: 0em;
+    transition: var(--tran-secondary);
+}
+
+.arrow {
+    margin-top: -.3em;
+    font-size: 2em;
 }

@@ -31,8 +31,11 @@ const SearchedBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected
                                         data-id={book._id}
                                         onChange={()=>handleSingleCheck(book._id)}/>
                                 </td>
-                                <td><img src={book.image} alt={book.title} className="" width="80px" height="80px"/></td>
-                                <td>{book.title}</td>
+                                <td>
+                                    <Link to={`/books/view/${book.title}`}>
+                                        <img src={book.image} alt={book.title} className="" width="80px" height="80px" />
+                                    </Link>
+                                </td>                                <td>{book.title}</td>
                                 <td>{book.author}</td>
                                 <td>
                                     {book.status 
@@ -50,11 +53,6 @@ const SearchedBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected
                                     <Link to={`/books/view/${book.title}`}>
                                         <button className="table-btn">
                                             view
-                                        </button>
-                                    </Link>
-                                    <Link to={`/books/view/${book.title}`}>
-                                        <button className="table-btn">
-                                            edit
                                         </button>
                                     </Link>
                                     <button 

@@ -22,11 +22,9 @@ app.use(fileUpload());
 const booksRouter = require('./routes/books.router');
 const usersRouter = require('./routes/users.router');
 
-
 /* Routes */
 app.use('/api/books', booksRouter);
 app.use('/api/users', usersRouter);
-
 
 // listen on port...
 const PORT = process.env.PORT || 5000;

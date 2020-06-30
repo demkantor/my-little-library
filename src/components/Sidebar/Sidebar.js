@@ -39,6 +39,14 @@ const Sidebar = () => {
                     </NavLink>
                 </li>
                 <li className="side__item">
+                    <NavLink to="/music" className="link" activeClassName="selected">
+                        <span className="material-icons side__icon">
+                                equalizer
+                        </span> 
+                        Music
+                    </NavLink>
+                </li>
+                <li className="side__item">
                     <NavLink to="/misc" className="link" activeClassName="selected">
                         <span className="material-icons side__icon">
                                 miscellaneous_services

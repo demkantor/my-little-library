@@ -89,8 +89,8 @@ exports.addBook = async (req, res, next) => {
         } else {
             console.log('in POST new book and image with: ', req.body);
             const image = req.files.image;
-            const uploadPath = `${process.env.FILE_UPLOAD_PATH}/${image.name}`;
-            const displayPath = `images/${image.name}`;
+            const uploadPath = `${process.env.FILE_UPLOAD_PATH}/books/${image.name}`;
+            const displayPath = `images/books/${image.name}`;
             req.body.image = displayPath;
             image.mv(uploadPath, async (error) => {
                 if (error) {
@@ -189,8 +189,8 @@ exports.editBook = async (req, res, next) => {
         } else {
             console.log('in EDIT book and image with: ', req.params.id, req.body);
             const image = req.files.image;
-            const uploadPath = `${process.env.FILE_UPLOAD_PATH}/${image.name}`;
-            const displayPath = `images/${image.name}`;
+            const uploadPath = `${process.env.FILE_UPLOAD_PATH}/books/${image.name}`;
+            const displayPath = `images/books/${image.name}`;
             image.mv(uploadPath, async (error) => {
                 if (error) {
                   console.error(error);

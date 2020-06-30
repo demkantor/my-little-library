@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+// import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -29,6 +30,7 @@ class App extends Component {
   render() {
     const { expandSide } = this.state;
     const { loggedIn } = this.props;
+    // const { location } = this.props
 
     return (
       <>
@@ -40,20 +42,30 @@ class App extends Component {
             <Sidebar />
             <RouteMap />
             <div className={expandSide ? "section-wrapper side-expanded" : "section-wrapper"}>
-              <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/profile" component={Profile} />
-                <Route exact path="/books" component={Books} />
-                <Route exact path="/books/new" component={NewBook} />
-                <Route exact path="/books/view/:title" component={EditBook} />
+              
+            {/* <TransitionGroup>
+              <CSSTransition
+                key={location.key}
+                timeout={{ enter: 300, exit: 300 }}
+                classNames={'fade'}> */}
 
-                {/* 404 page */}
-                <Route render={() => 
-                  <div className="fourOfour">
-                    <h1>Lost? Me too...</h1>
-                  </div>
-                }/>
-              </Switch>
+                  <Switch>
+                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/books" component={Books} />
+                    <Route exact path="/books/new" component={NewBook} />
+                    <Route exact path="/books/view/:title" component={EditBook} />
+
+                    {/* 404 page */}
+                    <Route render={() => 
+                      <div className="fourOfour">
+                        <h1>Lost? Me too...</h1>
+                      </div>
+                    }/>
+                  </Switch>
+
+                {/* </CSSTransition>
+              </TransitionGroup> */}
             </div>
           </div>
           :
