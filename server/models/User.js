@@ -10,22 +10,27 @@ const jwtSecret = process.env.JWT_SECRET
 const UserSchema = new mongoose.Schema({
     first_name: {
         type: String,
-        required: [true, 'What is your first name?'],
-        trim: true
     },
     last_name: {
         type: String,
-        required: [true, 'What is your last name?'],
-        trim: true
     },
     email: { 
         type: String,
         unique: true,
         required: true
     },
+    phone: { 
+        type: String,
+    },
     password: {
         type: String,
         required: true
+    },
+    image: {
+        type: String
+    },
+    imageName: {
+        type: String
     },
     role: {
         type: String,

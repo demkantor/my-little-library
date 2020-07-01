@@ -5,16 +5,16 @@ const User = require('../models/User');
 exports.authenticate = async (req, res, next) => {
     try {
         console.log('need to set up auth!');
-        res.status(201).json('auth ok')
+        return res.status(201).json('auth ok');
     } catch(error) {
         console.log(error);
-    }
+    };
 };
 
 // signs in a user
 exports.loginUser = async (req, res, next) => {
     try {
-        console.log('in user login POST', req.body)
+        console.log('in user login POST', req.body);
         const email = req.body.email;
         const password = req.body.password;
         const loginUser = await User.findByCredentials(email, password);
@@ -33,7 +33,7 @@ exports.loginUser = async (req, res, next) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error logging in, please try again...' });
-    }
+    };
 };
 
 // get all users

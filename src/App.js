@@ -10,6 +10,7 @@ import RouteMap from './components/RouteMap/RouteMap';
 import Home from './components/Home/Home';
 
 import Login from './components/Login/Login';
+import Register from './components/Login/Register';
 import Profile from './components/Profile/Profile';
 import Books from './components/Books/Books';
 import NewBook from './components/Books/NewBook';
@@ -35,7 +36,7 @@ class App extends Component {
     return (
       <>
         <Router>
-          {loggedIn === false
+          {loggedIn === true
           ?
           <div className={expandSide ? "main-wrapper expanded" : "main-wrapper"}>
             <Navbar handleExpand={this.handleExpand}/>

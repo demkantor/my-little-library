@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 
 
-const Login = () => {
+const Register = () => {
 
     const [showPass, setShowPass] = useState(false);
     const [userMail, setUserMail] = useState('');
@@ -56,12 +56,12 @@ const Login = () => {
                                 {showPass ? '🙈' : '👁'}
                             </span>
                         </div>
-                    <button className="btn-lg" onClick={authenticate}>Sign In</button>
+                    <button className="btn-lg" onClick={authenticate}>Register</button>
                 </form>
                 <div className="center">
                     <Link to="/register">
                         <p>
-                            No Account? Click to Register
+                            Have an Account Already? Click to Login
                         </p>
                     </Link>
                 </div>
@@ -75,4 +75,4 @@ const Login = () => {
     )
 };
 
-export default Login;
+export default Register;
