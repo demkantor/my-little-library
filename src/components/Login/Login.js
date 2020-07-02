@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 
 
-const Login = () => {
+const Login = ({ handleRegister }) => {
 
     const [showPass, setShowPass] = useState(false);
     const [userMail, setUserMail] = useState('');
@@ -41,25 +41,25 @@ const Login = () => {
                         <label htmlFor="email" className="label">Email</label>
                     </div>
                     <div className="field">
-                            <input
-                                type={showPass ? 'text' : 'password'}
-                                name="password"
-                                className="login-input"
-                                placeholder=""
-                                value={userPass}
-                                onChange={(event)=>{setUserPass(event.target.value)}}  />
-                            <label htmlFor="password" className="label">Password</label>
-                            <span
-                                className="toggle-password"
-                                onMouseEnter={() => setShowPass(true)}
-                                onMouseLeave={() => setShowPass(false)}>
-                                {showPass ? '🙈' : '👁'}
-                            </span>
-                        </div>
+                        <input
+                            type={showPass ? 'text' : 'password'}
+                            name="password"
+                            className="login-input"
+                            placeholder=""
+                            value={userPass}
+                            onChange={(event)=>{setUserPass(event.target.value)}}  />
+                        <label htmlFor="password" className="label">Password</label>
+                        <span
+                            className="toggle-password"
+                            onMouseEnter={() => setShowPass(true)}
+                            onMouseLeave={() => setShowPass(false)}>
+                            {showPass ? '🙈' : '👁'}
+                        </span>
+                    </div>
                     <button className="btn-lg" onClick={authenticate}>Sign In</button>
                 </form>
                 <div className="center">
-                    <Link to="/register">
+                    <Link to="/register" onClick={handleRegister}>
                         <p>
                             No Account? Click to Register
                         </p>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addUser, authenticate, getUsers, loginUser } = require('../controlers/users');
+const { addUser, authenticate, getUsers, loginUser, registerUser } = require('../controlers/users');
 
 
 // user routes
@@ -12,6 +12,10 @@ router
 router
 .route('/login')
 .post(loginUser)
+
+router
+.route('/register')
+.post(registerUser)
 
 router
 .route('/all')

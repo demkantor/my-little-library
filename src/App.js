@@ -20,16 +20,22 @@ import EditBook from './components/Books/EditBook';
 class App extends Component {
 
   state = {
-    expandSide: false
+    expandSide: false,
+    register: false
   };
 
   // handles viewport dependending on sidebar open
   handleExpand = () => {
-    this.setState({expandSide: !this.state.expandSide})
+    this.setState({ expandSide: !this.state.expandSide });
+  };
+
+  // handles switch from login to register mode
+  handleRegister = () => {
+    this.setState({ register: !this.state.register });
   };
 
   render() {
-    const { expandSide } = this.state;
+    const { expandSide, register } = this.state;
     const { loggedIn } = this.props;
     // const { location } = this.props
 
@@ -70,7 +76,18 @@ class App extends Component {
             </div>
           </div>
           :
-          <Login />
+          <>
+            {register === false 
+              ?
+              <Login 
+                handleRegister={this.handleRegister}
+                />
+              :
+              <Register 
+                handleRegister={this.handleRegister}
+                />
+              }
+            </>
           }
         </Router>
       </>

@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 
 
-const Register = () => {
+const Register = ({ handleRegister }) => {
 
     const [showPass, setShowPass] = useState(false);
     const [userMail, setUserMail] = useState('');
     const [userPass, setUserPass] = useState('');
+    const [confirmPass, setConfirmPass] = useState('');
     const [errors, setErrors] = useState('');
 
     const dispatch = useDispatch();
@@ -19,9 +20,11 @@ const Register = () => {
             setErrors('Must Include Valid e-Mail!!');
         } else if(userPass === ''){
             setErrors('Must Include Valid Password!!');
+        } else if(userPass !== confirmPass){
+            setErrors('Password Fields Must Match!!');
         } else {
             setErrors('Loading...');
-            dispatch({ type: 'LOGIN', payload: {email: userMail, password: userPass}});
+            dispatch({ type: 'REGISTER', payload: { email: userMail, password: userPass }});
         };
     };
 
@@ -41,25 +44,41 @@ const Register = () => {
                         <label htmlFor="email" className="label">Email</label>
                     </div>
                     <div className="field">
-                            <input
-                                type={showPass ? 'text' : 'password'}
-                                name="password"
-                                className="login-input"
-                                placeholder=""
-                                value={userPass}
-                                onChange={(event)=>{setUserPass(event.target.value)}}  />
-                            <label htmlFor="password" className="label">Password</label>
-                            <span
-                                className="toggle-password"
-                                onMouseEnter={() => setShowPass(true)}
-                                onMouseLeave={() => setShowPass(false)}>
-                                {showPass ? '🙈' : '👁'}
-                            </span>
-                        </div>
+                        <input
+                            type={showPass ? 'text' : 'password'}
+                            name="password"
+                            className="login-input"
+                            placeholder=""
+                            value={userPass}
+                            onChange={(event)=>{setUserPass(event.target.value)}}  />
+                        <label htmlFor="password" className="label">Password</label>
+                        <span
+                            className="toggle-password"
+                            onMouseEnter={() => setShowPass(true)}
+                            onMouseLeave={() => setShowPass(false)}>
+                            {showPass ? '🙈' : '👁'}
+                        </span>
+                    </div>
+                    <div className="field">
+                        <input
+                            type={showPass ? 'text' : 'password'}
+                            name="confirm"
+                            className="login-input"
+                            placeholder=""
+                            value={confirmPass}
+                            onChange={(event)=>{setConfirmPass(event.target.value)}}  />
+                        <label htmlFor="confirm" className="label">Confirm Password</label>
+                        <span
+                            className="toggle-password"
+                            onMouseEnter={() => setShowPass(true)}
+                            onMouseLeave={() => setShowPass(false)}>
+                            {showPass ? '🙈' : '👁'}
+                        </span>
+                    </div>
                     <button className="btn-lg" onClick={authenticate}>Register</button>
                 </form>
                 <div className="center">
-                    <Link to="/register">
+                    <Link to="/login" onClick={handleRegister}>
                         <p>
                             Have an Account Already? Click to Login
                         </p>
@@ -72,7 +91,7 @@ const Register = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 };
 
 export default Register;

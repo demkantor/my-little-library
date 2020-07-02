@@ -6,12 +6,13 @@ import { takeEvery, put } from "redux-saga/effects";
 function* userSaga() {
     yield takeEvery('LOGIN', loginUser);
     yield takeEvery('LOGOUT', logoutUser);
+    yield takeEvery('REGISTER', registerUser);
 
 };
 
 
 function* loginUser(user) {
-    yield console.log('in user login with ', user.payload);
+    yield console.log('in user login with:', user.payload);
     try {
         const login = yield axios.post(`/api/users/login`, user.payload);
         yield put({ type: 'SET_USER', payload: login.data });
@@ -23,8 +24,19 @@ function* loginUser(user) {
 
 
 function* logoutUser() {
-    yield console.log('loggin out')
+    yield console.log('loggin out');
 
+};
+
+function* registerUser(user) {
+    yield console.log('in register user with:', user.payload);
+    try {
+        const register = yield axios.post(`/api/users/register`, user.payload);
+        yield put({ type: 'SET_USER', payload: register.data });
+        
+    } catch (error) {
+        console.log('Error with user registration:', error);
+    };
 };
 
 

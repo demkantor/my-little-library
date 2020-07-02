@@ -29,10 +29,33 @@ exports.loginUser = async (req, res, next) => {
                 data: loginUser
             });
         };
-        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error logging in, please try again...' });
+    };
+};
+
+// registers a user
+exports.registerUser = async (req, res, next) => {
+    try {
+        console.log('in new user register POST', req.body);
+        let body = req.body;
+        let newUser = new User(body);
+
+        await newUser.save();
+        const refreshToken = await newUser.createSession();
+        const accessToken = await newUser.generateAccessAuthToken();
+        console.log( accessToken, refreshToken)
+        return res
+            .header('x-refresh-token', refreshToken)
+            .header('x-access-token', accessToken)
+            .status(200).json({
+                success: true,
+                data: newUser
+            });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error registering, please try again...' });
     };
 };
 
@@ -53,7 +76,7 @@ exports.getUsers = async (req, res, next) => {
     }
 };
 
-// Add a user to the member list
+// Add a user to the member list - done by libraian role
 exports.addUser = async (req, res, next) => {
     try {
         console.log('in POST new user with: ', req.body);

@@ -8,23 +8,24 @@ const bcrypt = require('bcryptjs');
 const jwtSecret = process.env.JWT_SECRET
 
 const UserSchema = new mongoose.Schema({
+    email: { 
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     first_name: {
         type: String,
     },
     last_name: {
         type: String,
     },
-    email: { 
-        type: String,
-        unique: true,
-        required: true
-    },
     phone: { 
         type: String,
-    },
-    password: {
-        type: String,
-        required: true
+        required: false
     },
     image: {
         type: String
