@@ -101,17 +101,41 @@ exports.updateProfile = async (req, res, next) => {
         console.log('in update user profile PUT: ', req.params.id, req.body);
         const id = req.params.id;
         const body = req.body
-        const user = await User.findByIdAndUpdate( id, { $set: body }, function(err, res){
-            if(err) {
-                console.log(err);
-            } else {
-                console.log('success!')
-            }
-        });
-        return res.status(201).json({
-            success: true,
-            data: user
-         });
+        if (!req.files) {
+            const user = await User.findByIdAndUpdate( id, { $set: body }, function(err, res){
+                if(err) {
+                    console.log(err);
+                } else {
+                    console.log('success!')
+                }
+            });
+            return res.status(201).json({
+                success: true,
+                data: user
+            });
+        } else {
+            const image = req.files.image;
+            const uploadPath = `${process.env.FILE_UPLOAD_PATH}/users/${image.name}`;
+            const displayPath = `images/users/${image.name}`;
+            body.image = displayPath;
+            image.mv(uploadPath, async (error) => {
+                if (error) {
+                  console.error(error);
+                  return res.status(500).json({ error });
+                }
+                const user = await User.findByIdAndUpdate( id, { $set: body }, function(err, res){
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        console.log('success!')
+                    }
+                });
+                return res.status(201).json({
+                    success: true,
+                    data: user
+                });
+            });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error while updating user, please try again...' });

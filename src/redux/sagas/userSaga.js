@@ -42,9 +42,14 @@ function* registerUser(user) {
 function* updateProfile(user) {
     yield console.log('in update profile with:', user.payload);
     try {
-        const register = yield axios.put(`/api/users/profile/update/${user.payload.profileId}`, user.payload.send);
-        yield put({ type: 'SET_USER', payload: register.data });
-        
+        if(user.payload.send.image) {
+            const config = { headers: {'Content-Type': 'multipart/form-data'} }
+            const register = yield axios.put(`/api/users/profile/update/${user.payload.profileId}`, user.payload.send, config);
+            yield put({ type: 'SET_USER', payload: register.data });
+        } else {
+            const register = yield axios.put(`/api/users/profile/update/${user.payload.profileId}`, user.payload.send);
+            yield put({ type: 'SET_USER', payload: register.data });
+        }
     } catch (error) {
         console.log('Error with user registration:', error);
     };
