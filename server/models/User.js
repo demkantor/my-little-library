@@ -17,10 +17,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    first_name: {
+    firstName: {
         type: String,
     },
-    last_name: {
+    lastName: {
         type: String,
     },
     phone: { 
@@ -118,40 +118,40 @@ UserSchema.statics.findByIdAndToken = function (_id, token) {
     });
 };
 
-// UserSchema.statics.findByCredentials = function (email, password) {
-//     let User = this;
-//     return User.findOne({ email }).then((user) => {
-//         if (!user) return Promise.reject();
-//         return new Promise((resolve, reject) => {
-//             bcrypt.compare(password, user.password, (err, res) => {
-//                 if (res) {
-//                     resolve(user);
-//                 }
-//                 else {
-//                     reject();
-//                     console.log(password, user.password)
-//                     console.log('rejected, password does not match!');
-//                 };
-//             });
-//         });
-//     });
-// };
-
-UserSchema.statics.findByCredentials = async function (email, password) {
-    try {
-        let User = this;
-        const findemail = await User.findOne({ email });
-        if(!findemail) throw new Error("no user found!");
-        if(password !== findemail.password) {
-            throw new Error("password mismatch!")
-        } else {
-            return (findemail)
-        }
-    } catch (error) {
-        console.log('error finding user or password mismatch!', error);
-            return {failed: true}
-    }
+UserSchema.statics.findByCredentials = function (email, password) {
+    let User = this;
+    return User.findOne({ email }).then((user) => {
+        if (!user) return Promise.reject();
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password, user.password, (err, res) => {
+                if (res) {
+                    resolve(user);
+                }
+                else {
+                    reject();
+                    console.log(password, user.password)
+                    console.log('rejected, password does not match!');
+                };
+            });
+        });
+    });
 };
+
+// UserSchema.statics.findByCredentials = async function (email, password) {
+//     try {
+//         let User = this;
+//         const findemail = await User.findOne({ email });
+//         if(!findemail) throw new Error("no user found!");
+//         if(password !== findemail.password) {
+//             throw new Error("password mismatch!")
+//         } else {
+//             return (findemail)
+//         }
+//     } catch (error) {
+//         console.log('error finding user or password mismatch!', error);
+//             return {failed: true}
+//     }
+// };
 
 UserSchema.statics.hasRefreshTokenExpired = (expiresAt) => {
     let secondsSinceEpoch = Date.now() / 1000;
