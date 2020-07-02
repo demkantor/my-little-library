@@ -92,6 +92,28 @@ exports.addUser = async (req, res, next) => {
         //     return res.status(400).json({ error: 'This user already exists!' });
         // }
         res.status(500).json({ error: 'Server error while adding user, please try again...' });
-    }
+    };
 };
 
+// Update user info
+exports.updateProfile = async (req, res, next) => {
+    try {
+        console.log('in update user profile PUT: ', req.params.id, req.body);
+        const id = req.params.id;
+        const body = req.body
+        const user = await User.findByIdAndUpdate( id, { $set: body }, function(err, res){
+            if(err) {
+                console.log(err);
+            } else {
+                console.log('success!')
+            }
+        });
+        return res.status(201).json({
+            success: true,
+            data: user
+         });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error while updating user, please try again...' });
+    };
+};

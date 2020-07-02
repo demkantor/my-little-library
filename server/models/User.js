@@ -130,7 +130,7 @@ UserSchema.statics.findByCredentials = function (email, password) {
                 else {
                     reject();
                     console.log(password, user.password)
-                    console.log('rejected, password does not match!');
+                    console.error('rejected, password does not match!', err);
                 };
             });
         });
