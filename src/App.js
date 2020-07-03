@@ -27,18 +27,20 @@ class App extends Component {
   };
 
   componentDidMount = () => {
+    // checks for token and experation date
     const token = localStorage.AuthToken;
     if(token){
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
+      // console.log(decodedToken);
       if(decodedToken.exp * 1000 < Date.now()){
         this.props.dispatch({ type: 'LOGOUT' });
         window.location.href = '/login'
-      } else 
+      } else {
         this.props.dispatch({ type: 'SET_AUTHENTICATED', payload: token });
         axios.defaults.headers.common['Authorization'] = token;
-    }
-  }
+      };
+    };
+  };
 
   // handles viewport dependending on sidebar open
   handleExpand = () => {

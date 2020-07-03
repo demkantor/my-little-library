@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import './Navbar.css';
 
 
-
-
 const Navbar = ({ handleExpand }) => {
+    const dispatch = useDispatch();
 
     const [openSidebar, setOpenSidebar] = useState(true);
     const [expandMenu, setExpandMenu] = useState(false); 
@@ -45,7 +45,7 @@ const Navbar = ({ handleExpand }) => {
                             </span> 
                             Profile
                         </Link>
-                        <Link to="/" className="menu__item">
+                        <Link to="/login" className="menu__item" onClick={()=>dispatch({ type: 'LOGOUT'})}>
                             <span className="material-icons menu__icon">
                                 login
                             </span> 
