@@ -24,10 +24,16 @@ exports.loginUser = async (req, res, next) => {
                 success: false
             });
         } else {
-            return res.status(200).json({
-                success: true,
-                data: loginUser
-            });
+
+            const refreshToken = await loginUser.createSession();
+            const accessToken = await loginUser.generateAccessAuthToken();
+            return res
+                .header('x_refresh_token', refreshToken)
+                .header('x_access_token', accessToken)
+                .status(200).json({
+                    success: true,
+                    data: loginUser
+                });
         };
     } catch (error) {
         console.error(error);
@@ -45,10 +51,10 @@ exports.registerUser = async (req, res, next) => {
         await newUser.save();
         const refreshToken = await newUser.createSession();
         const accessToken = await newUser.generateAccessAuthToken();
-        console.log( accessToken, refreshToken)
+        // console.log( accessToken, refreshToken)
         return res
-            .header('x-refresh-token', refreshToken)
-            .header('x-access-token', accessToken)
+            .header('x_refresh_token', refreshToken)
+            .header('x_access_token', accessToken)
             .status(200).json({
                 success: true,
                 data: newUser

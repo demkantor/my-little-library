@@ -15,6 +15,7 @@ function* loginUser(user) {
     yield console.log('in user login with:', user.payload);
     try {
         const login = yield axios.post(`/api/users/login`, user.payload);
+        yield setAuthorizationHeader(login.headers.x_access_token, login.headers.x_refresh_token);
         yield put({ type: 'SET_USER', payload: login.data });
         
     } catch (error) {
@@ -32,6 +33,7 @@ function* registerUser(user) {
     yield console.log('in register user with:', user.payload);
     try {
         const register = yield axios.post(`/api/users/register`, user.payload);
+        yield setAuthorizationHeader(user.headers.x_access_token, user.headers.x_refresh_token);
         yield put({ type: 'SET_USER', payload: register.data });
         
     } catch (error) {
@@ -53,6 +55,15 @@ function* updateProfile(user) {
     } catch (error) {
         console.log('Error with user registration:', error);
     };
+};
+
+// holds current user's JSON webtoken to be used in api headers
+const setAuthorizationHeader = (authToken, refreshToken) => {
+    const AuthToken = `Bearer ${authToken}`;
+    const RefreshToken = `Bearer ${refreshToken}`;
+    localStorage.setItem('AuthToken', AuthToken);
+    localStorage.setItem('RefreshToken', RefreshToken);
+    axios.defaults.headers.common['Authorization'] = AuthToken;
 };
 
 
