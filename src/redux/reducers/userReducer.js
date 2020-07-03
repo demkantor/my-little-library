@@ -21,7 +21,19 @@ const currentUser = (state = initialState, action) => {
     };
 };
 
+// stores user's auth json web token
+const token = (state = '', action) => {
+    switch (action.type) {
+        case 'SET_TOKEN':
+            return state = action.payload;
+        case 'UNSET_TOKEN':
+            return state = '';
+        default:
+            return state;
+    };
+};
+
 export default combineReducers({
     currentUser,
-
+    token
 });

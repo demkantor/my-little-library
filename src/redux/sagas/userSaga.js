@@ -10,12 +10,13 @@ function* userSaga() {
     yield takeEvery('UPDATE_PROFILE', updateProfile);
 };
 
-
+// logs a user in and sets web token auth
 function* loginUser(user) {
     yield console.log('in user login with:', user.payload);
     try {
         const login = yield axios.post(`/api/users/login`, user.payload);
         yield setAuthorizationHeader(login.headers.x_access_token, login.headers.x_refresh_token);
+        yield put({ type: 'SET_TOKEN', payload: login.headers.x_access_token });
         yield put({ type: 'SET_USER', payload: login.data });
         
     } catch (error) {
@@ -23,17 +24,28 @@ function* loginUser(user) {
     };
 };
 
-
+// logs user out, removes webtoken auth
 function* logoutUser() {
-    yield console.log('loggin out');
+    try {
+        // yield axios.post('/logout');
+        delete axios.defaults.headers.common['Authorization'];
+        yield put({ type: 'UNSET_TOKEN' });
+        yield put({ type: 'UNSET_USER' });
+        localStorage.removeItem('AuthToken');
+        localStorage.removeItem('RefreshToken');
+    } catch (error) {
+      console.log('Error with user logout:', error);
+    }
 
 };
 
+// registers and logins in new user and sts auth web token
 function* registerUser(user) {
     yield console.log('in register user with:', user.payload);
     try {
         const register = yield axios.post(`/api/users/register`, user.payload);
         yield setAuthorizationHeader(user.headers.x_access_token, user.headers.x_refresh_token);
+        yield put({ type: 'SET_TOKEN', payload: user.headers.x_access_token });
         yield put({ type: 'SET_USER', payload: register.data });
         
     } catch (error) {
@@ -41,6 +53,7 @@ function* registerUser(user) {
     };
 };
 
+// sends update user profile info to database
 function* updateProfile(user) {
     yield console.log('in update profile with:', user.payload);
     try {

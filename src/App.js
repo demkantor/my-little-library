@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { connect } from 'react-redux';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
@@ -23,6 +25,20 @@ class App extends Component {
     expandSide: false,
     register: false
   };
+
+  componentDidMount = () => {
+    const token = localStorage.AuthToken;
+    if(token){
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
+      if(decodedToken.exp * 1000 < Date.now()){
+        this.props.dispatch({ type: 'LOGOUT' });
+        window.location.href = '/login'
+      } else 
+        this.props.dispatch({ type: 'SET_AUTHENTICATED', payload: token });
+        axios.defaults.headers.common['Authorization'] = token;
+    }
+  }
 
   // handles viewport dependending on sidebar open
   handleExpand = () => {
