@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './Login.css';
 
 
-const Register = ({ handleRegister }) => {
+const Register = ({ handleRegister, history }) => {
 
     const [showPass, setShowPass] = useState(false);
     const [userMail, setUserMail] = useState('');
@@ -24,7 +24,7 @@ const Register = ({ handleRegister }) => {
             setErrors('Password Fields Must Match!!');
         } else {
             setErrors('Loading...');
-            dispatch({ type: 'REGISTER', payload: { email: userMail, password: userPass }});
+            dispatch({ type: 'REGISTER', payload: {send: { email: userMail, password: userPass }, history }});
         };
     };
 
@@ -94,4 +94,4 @@ const Register = ({ handleRegister }) => {
     );
 };
 
-export default Register;
+export default withRouter(Register);

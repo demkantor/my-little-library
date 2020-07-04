@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';

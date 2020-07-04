@@ -36,6 +36,10 @@
     transition: var(--tran-primary);
 }
 
+.link:hover {
+    color: var(--text-teritary);
+}
+
 .selected, .selected > .side__icon {
     transition: var(--tran-primary);
     transform: scale(1.3);

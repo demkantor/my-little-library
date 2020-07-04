@@ -15,11 +15,11 @@ function* userSaga() {
 function* loginUser(user) {
     yield console.log('in user login with:', user.payload);
     try {
-        const login = yield axios.post(`/api/users/login`, user.payload);
+        const login = yield axios.post(`/api/users/login`, user.payload.send);
         yield setAuthorizationHeader(login.headers.x_access_token, login.headers.x_refresh_token, login.data.data._id);
         yield put({ type: 'SET_TOKEN', payload: login.headers.x_access_token });
         yield put({ type: 'SET_USER', payload: login.data });
-        
+        yield user.payload.history.push('/');
     } catch (error) {
         console.log('Error with user login:', error);
     };
@@ -55,11 +55,11 @@ function* logoutUser() {
 function* registerUser(user) {
     yield console.log('in register user with:', user.payload);
     try {
-        const register = yield axios.post(`/api/users/register`, user.payload);
-        yield setAuthorizationHeader(user.headers.x_access_token, user.headers.x_refresh_token);
-        yield put({ type: 'SET_TOKEN', payload: user.headers.x_access_token });
+        const register = yield axios.post(`/api/users/register`, user.payload.send);
+        yield setAuthorizationHeader(register.headers.x_access_token, register.headers.x_refresh_token);
+        yield put({ type: 'SET_TOKEN', payload: register.headers.x_access_token });
         yield put({ type: 'SET_USER', payload: register.data });
-        
+        yield user.payload.history.push('/');
     } catch (error) {
         console.log('Error with user registration:', error);
     };
