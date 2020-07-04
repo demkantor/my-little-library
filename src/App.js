@@ -38,6 +38,7 @@ class App extends Component {
       } else {
         this.props.dispatch({ type: 'SET_AUTHENTICATED', payload: token });
         axios.defaults.headers.common['Authorization'] = token;
+        this.props.dispatch({ type: 'GET_THIS_USER' });
       };
     };
   };

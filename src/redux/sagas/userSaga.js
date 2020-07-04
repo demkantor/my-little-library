@@ -7,6 +7,7 @@ function* userSaga() {
     yield takeEvery('LOGIN', loginUser);
     yield takeEvery('LOGOUT', logoutUser);
     yield takeEvery('REGISTER', registerUser);
+    yield takeEvery('GET_THIS_USER', getThisUser);
     yield takeEvery('UPDATE_PROFILE', updateProfile);
 };
 
@@ -15,7 +16,7 @@ function* loginUser(user) {
     yield console.log('in user login with:', user.payload);
     try {
         const login = yield axios.post(`/api/users/login`, user.payload);
-        yield setAuthorizationHeader(login.headers.x_access_token, login.headers.x_refresh_token);
+        yield setAuthorizationHeader(login.headers.x_access_token, login.headers.x_refresh_token, login.data.data._id);
         yield put({ type: 'SET_TOKEN', payload: login.headers.x_access_token });
         yield put({ type: 'SET_USER', payload: login.data });
         
@@ -24,8 +25,19 @@ function* loginUser(user) {
     };
 };
 
+// upon screen refresh check webtoken and id to keep user logged in
+function* getThisUser(){
+    const id = localStorage.CurrentUser;
+    const token = localStorage.AuthToken;
+    console.log("We are here in user GET info saga with:", id, token);
+    const thisUser = yield axios.get(`/api/users/auth/${id}/${token}`);
+    console.log('in saga - this user GET back with:', thisUser.data);
+    yield put({ type: 'SET_USER', payload: thisUser.data });
+};
+
 // logs user out, removes webtoken auth
 function* logoutUser() {
+    yield console.log(axios.defaults.headers.common)
     try {
         // yield axios.post('/logout');
         delete axios.defaults.headers.common['Authorization'];
@@ -35,8 +47,7 @@ function* logoutUser() {
         localStorage.removeItem('RefreshToken');
     } catch (error) {
       console.log('Error with user logout:', error);
-    }
-
+    };
 };
 
 // registers and logins in new user and sts auth web token
@@ -71,11 +82,12 @@ function* updateProfile(user) {
 };
 
 // holds current user's JSON webtoken to be used in api headers
-const setAuthorizationHeader = (authToken, refreshToken) => {
+const setAuthorizationHeader = (authToken, refreshToken, id) => {
     const AuthToken = `Bearer ${authToken}`;
     const RefreshToken = `Bearer ${refreshToken}`;
     localStorage.setItem('AuthToken', AuthToken);
     localStorage.setItem('RefreshToken', RefreshToken);
+    localStorage.setItem('CurrentUser', id);
     axios.defaults.headers.common['Authorization'] = AuthToken;
 };
 

@@ -35,7 +35,8 @@ const SearchedBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected
                                     <Link to={`/books/view/${book.title}`}>
                                         <img src={book.image} alt={book.title} className="" width="80px" height="80px" />
                                     </Link>
-                                </td>                                <td>{book.title}</td>
+                                </td>                                
+                                <td>{book.title}</td>
                                 <td>{book.author}</td>
                                 <td>
                                     {book.status 

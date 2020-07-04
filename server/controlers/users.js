@@ -3,9 +3,21 @@ const User = require('../models/User');
 
 // authentication route
 exports.authenticate = async (req, res, next) => {
+    console.log('in auth route');
+    const id = req.params.id;
+    const token = req.params.token;
     try {
-        console.log('need to set up auth!');
-        return res.status(201).json('auth ok');
+        const user = await User.findById(id)
+        if(user.failed) {
+            return res.status(401).json({
+                success: false
+            });
+        } else {
+            return res.status(200).json({
+                success: true,
+                data: user
+            });
+        };
     } catch(error) {
         console.log(error);
     };

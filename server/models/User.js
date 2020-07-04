@@ -118,6 +118,7 @@ UserSchema.statics.findByIdAndToken = function (_id, token) {
     });
 };
 
+// used to check user credentials on loging in
 UserSchema.statics.findByCredentials = async function (email, password) {
     try {
         let User = this;
@@ -138,7 +139,7 @@ UserSchema.statics.findByCredentials = async function (email, password) {
     } catch (error) {
         console.log('error finding user or password mismatch!', error);
         return {failed: true}
-    }
+    };
 };
 
 UserSchema.statics.hasRefreshTokenExpired = (expiresAt) => {

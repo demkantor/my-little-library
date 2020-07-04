@@ -54,6 +54,7 @@
     text-decoration: none;
     list-style-type: none;
     margin: 0 .5em;
+    display: flex;
 }
 
 .nav__btn {
@@ -66,6 +67,13 @@
 
 .nav__pic {
     text-align: center;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+}
+
+.nav__name{
+    padding: 1em 0 0 1em;
 }
 
 .menu {
@@ -87,7 +95,8 @@
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin: .5em;
+    margin-top: 2.5em;
+    margin-left: 2em;
     padding: 0;
     border-radius: .5em;
     background-color: #fff;

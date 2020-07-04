@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import './Navbar.css';
 
 
 const Navbar = ({ handleExpand }) => {
     const dispatch = useDispatch();
+    const profile = useSelector(state => state.user.currentUser.data);
 
     const [openSidebar, setOpenSidebar] = useState(true);
     const [expandMenu, setExpandMenu] = useState(false); 
@@ -32,11 +33,19 @@ const Navbar = ({ handleExpand }) => {
                     </button>
                 </li>
                 <li className={expandMenu ? 'nav__item menu -active' : 'nav__item menu'} onClick={toggleMenu}>
-                    {/* <img src="" alt="" className="nav_pic" /> */}
-                    <span className="material-icons">
-                        face
-                    </span> 
-                    <span>Profile Name</span>
+                    {profile &&
+                        <>
+                            {profile.image 
+                            ?
+                            <img src={profile.image} alt="profile" className="nav__pic" />
+                            :
+                            <span className="material-icons">
+                                face
+                            </span> 
+                            }
+                            <span className="nav__name">{profile.firstName}{" "}{profile.lastName}</span>
+                        </>
+                    }
                     <span className="material-icons">expand_more</span>
                     <ul className="menu__list">
                         <Link to="/profile" className="menu__item">

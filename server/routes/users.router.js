@@ -6,7 +6,6 @@ const { addUser, authenticate, getUsers, loginUser, registerUser, updateProfile 
 // user routes
 router
 .route('/')
-.get(getUsers)
 .post(addUser)
 
 router
@@ -26,7 +25,7 @@ router
 .get(getUsers)
 
 router
-.route('/auth')
+.route('/auth/:id/:token')
 .get(authenticate)
 
 module.exports = router;
