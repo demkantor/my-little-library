@@ -45,6 +45,7 @@ function* logoutUser() {
         yield put({ type: 'UNSET_USER' });
         localStorage.removeItem('AuthToken');
         localStorage.removeItem('RefreshToken');
+        localStorage.removeItem('CurrentUser');
     } catch (error) {
       console.log('Error with user logout:', error);
     };

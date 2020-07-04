@@ -43,7 +43,13 @@ const Navbar = ({ handleExpand }) => {
                                 face
                             </span> 
                             }
+                            {profile.firstName
+                            ?
                             <span className="nav__name">{profile.firstName}{" "}{profile.lastName}</span>
+                            :
+                            <span className="nav__name">Profile</span>
+                            }
+                            
                         </>
                     }
                     <span className="material-icons">expand_more</span>
