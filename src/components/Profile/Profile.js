@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ImageUpload from '../ImageUpload/ImageUpload';
+import SubmitReset from '../Buttons/SubmitReset';
 import './Profile.css';
 
 const Profile = ({ history }) => {
@@ -40,7 +41,7 @@ const Profile = ({ history }) => {
         setPreview(URL.createObjectURL(e.target.files[0]));
     };
 
-    const handleSave = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         if(image) {
             console.log('saving....')
@@ -59,15 +60,16 @@ const Profile = ({ history }) => {
         };
     };
 
-    const resetForm = () => {
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPhone('');
+    const handleReset = () => {
+        setFirstName(profile.firstName);
+        setLastName(profile.lastName);
+        setEmail(profile.email);
+        setPhone(profile.phone);
+        setProfileId(profile._id);
+        setPreview(`/${profile.image}`);
         setErrors('');
         setImage('');
         setImageName('');
-        setPreview(null);
     };
 
 
@@ -109,20 +111,10 @@ const Profile = ({ history }) => {
                             handleImage = {handleImage}
                             />
                     </form>
-                    <div className="search-btn-container">
-                        <button className="card-btn" onClick={handleSave}>
-                            <span className="material-icons btn-icon">
-                                save
-                            </span> 
-                            Save
-                        </button>
-                        <button className="card-btn white-btn" onClick={resetForm}>
-                            <span className="material-icons btn-icon">
-                                refresh
-                            </span> 
-                            Reset
-                        </button>
-                    </div>
+                    <SubmitReset 
+                        handleSubmit={handleSubmit} 
+                        handleReset={handleReset}
+                        name={"save"} />
                 </div>
                 <div className="error form-errors">
                         <h3>

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 import AllBooksTable from './AllBooksTable';
 import SearchedBooksTable from './SearchedBooksTable';
+import SubmitReset from '../Buttons/SubmitReset';
 import './Books.css';
 
 const Books = () => {
@@ -16,13 +17,6 @@ const Books = () => {
     const [errors, setErrors] = useState('');
     const [checked, setChecked] = useState([]);
     const [searched, setSearched] = useState(false);
-
-    const clearForm = () => {
-        setSearched(false);
-        setTitle('');
-        setAuthor('');
-        setStatus('');
-    };
 
     // calls didpatch to remove one book or multiple books
     const deleteSelected = (id, title) => {
@@ -86,6 +80,26 @@ const Books = () => {
         setChecked(newList);
     };
 
+    // resets search fields
+    const handleReset = () => {
+        setSearched(false);
+        setTitle('');
+        setAuthor('');
+        setStatus('');
+    };
+
+    // save button submit
+    const handleSubmit = () => {
+        // console.log('searching db...', title, author, status);
+        if(title === "" && author === "" && status === ""){
+            setErrors('Must have criteria in at least one field!');
+        } else {
+            const objectToSend = { title, author, status }
+            dispatch({ type: 'SEARCH_BOOKS', payload: objectToSend });
+            setSearched(true);
+        };
+    };
+
     const handleSingleCheck = (id) => {
         console.log('check', id);
         if(checked.includes(id)) {
@@ -96,18 +110,6 @@ const Books = () => {
         };
         console.log(checked);
     };
-
-    const search = () => {
-        if(title === "" && author === "" && status === ""){
-            setErrors('Must have criteria in at least one field!');
-        } else {
-            const objectToSend = { title, author, status }
-            dispatch({ type: 'SEARCH_BOOKS', payload: objectToSend });
-            setSearched(true);
-        }
-        console.log('searching db...', title, author, status);
-    };
-
 
     return (
         <div className="container">
@@ -150,20 +152,10 @@ const Books = () => {
                                 <option value="unavailable">Unavailable</option>
                         </select> 
                     </form>
-                    <div className="search-btn-container">
-                        <button className="card-btn" onClick={search}>
-                            <span className="material-icons btn-icon">
-                                search
-                            </span> 
-                            Search
-                        </button>
-                        <button className="card-btn white-btn" onClick={clearForm}>
-                            <span className="material-icons btn-icon">
-                                refresh
-                            </span> 
-                            Reset
-                        </button>
-                    </div>
+                    <SubmitReset 
+                        handleSubmit={handleSubmit} 
+                        handleReset={handleReset}
+                        name={"search"} />
                     <div className="error form-errors">
                         <h3>
                             {errors}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ImageUpload from '../ImageUpload/ImageUpload';
+import SubmitReset from '../Buttons/SubmitReset';
 import './Books.css';
 
 
@@ -23,7 +24,7 @@ const NewBook = ({ history }) => {
         setPreview(URL.createObjectURL(e.target.files[0]));
     };
 
-    const resetForm = () => {
+    const handleReset = () => {
         setTitle('');
         setAuthor('');
         setCopies('');
@@ -33,7 +34,7 @@ const NewBook = ({ history }) => {
         setPreview(null);
     };
 
-    const saveBook = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         if(title === ''){
             setErrors('Must include a title!!');
@@ -87,20 +88,10 @@ const NewBook = ({ history }) => {
                             handleImage = {handleImage}
                             />
                     </form>
-                    <div className="search-btn-container">
-                        <button className="card-btn" onClick={saveBook}>
-                            <span className="material-icons btn-icon">
-                                save
-                            </span> 
-                            Save
-                        </button>
-                        <button className="card-btn white-btn" onClick={resetForm}>
-                            <span className="material-icons btn-icon">
-                                refresh
-                            </span> 
-                            Reset
-                        </button>
-                    </div>
+                    <SubmitReset 
+                        handleSubmit={handleSubmit} 
+                        handleReset={handleReset}
+                        name={"save"} />
                 </div>
                 <div className="error form-errors">
                         <h3>

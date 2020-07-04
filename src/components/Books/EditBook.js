@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ImageUpload from '../ImageUpload/ImageUpload';
+import SubmitReset from '../Buttons/SubmitReset';
 import './Books.css';
 
 const EditBook = ({ history }) => {
@@ -40,7 +41,7 @@ const EditBook = ({ history }) => {
     };
 
     // reset updates form to redux state instead of clearing it
-    const resetForm = () => {
+    const handleReset = () => {
         setTitle(thisBook.title);
         setAuthor(thisBook.author);
         setCopies(thisBook.copies);
@@ -50,7 +51,7 @@ const EditBook = ({ history }) => {
         setPreview(`/${thisBook.image}`);
     };
 
-    const saveBook = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         if(image) {
             const formData = new FormData();
@@ -104,20 +105,10 @@ const EditBook = ({ history }) => {
                     :
                     <p>loading...</p>
                     }
-                    <div className="search-btn-container">
-                        <button className="card-btn" onClick={saveBook}>
-                            <span className="material-icons btn-icon">
-                                save
-                            </span> 
-                            Save
-                        </button>
-                        <button className="card-btn white-btn" onClick={resetForm}>
-                            <span className="material-icons btn-icon">
-                                refresh
-                            </span> 
-                            Reset
-                        </button>
-                    </div>
+                    <SubmitReset 
+                        handleSubmit={handleSubmit} 
+                        handleReset={handleReset}
+                        name={"save"} />
                     <div className="error form-errors">
                         <h3>
                             {errors}

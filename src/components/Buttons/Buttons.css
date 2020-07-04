@@ -1,0 +1,42 @@
+.two-btn-container {
+    margin-top: 1em;
+    float: right;
+}
+
+.card-btn {
+    background: var(--text-teritary);
+    color: var(--bg-teritary);
+    font-size: 1.2em;
+    border: none;
+    appearance: none;
+    text-align: center;
+    padding: .6em .8em;
+    border-radius: .2em;
+    cursor: pointer;
+    transition: var(--tran-primary);
+    margin-right: .5em;
+    text-transform: capitalize;
+}
+
+.card-btn:hover {
+    filter: contrast(2.5);
+    transition: var(--tran-primary);
+}
+
+.card-btn:disabled {
+    background: var(--bg-teritary);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+.btn-icon{
+    font-size: .8em;
+    margin-right: .2em;
+}
+
+.white-btn {
+    background: var(--bg-teritary);
+    border: 1px solid var(--bg-primary);
+    color: var(--text-primary);
+    transition: var(--tran-primary);
+}
