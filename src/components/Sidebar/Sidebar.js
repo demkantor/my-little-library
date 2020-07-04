@@ -4,59 +4,36 @@ import { NavLink } from 'react-router-dom';
 import './Sidebar.css';
 
 
+const linkList = [
+    { location: "account", icon: "account_tree", name: "Loans" },
+    { location: "books", icon: "local_library", name: "Books" },
+    { location: "movies", icon: "movie", name: "Movies" },
+    { location: "music", icon: "equalizer", name: "Music" },
+    { location: "games", icon: "sports_esports", name: "Games" },
+    { location: "misc", icon: "miscellaneous_services", name: "Misc" }
+];
+
 
 const Sidebar = () => {
-
-    
     return (
         <nav className="sidebar-container">
             <div className="logo">
                     Library
             </div>
             <ul className="sidebar">
-                <li className="side__item">
-                    <NavLink to="/account" className="link" activeClassName="selected">
-                        <span className="material-icons side__icon">
-                                account_tree
-                        </span> 
-                        Loans
-                    </NavLink>
-                </li>
-                <li className="side__item">
-                    <NavLink to="/books" className="link" activeClassName="selected">
-                        <span className="material-icons side__icon">
-                                local_library
-                        </span> 
-                        Books
-                    </NavLink>
-                </li>
-                <li className="side__item">
-                    <NavLink to="/movies" className="link" activeClassName="selected">
-                        <span className="material-icons side__icon">
-                                movie
-                        </span> 
-                        Movies
-                    </NavLink>
-                </li>
-                <li className="side__item">
-                    <NavLink to="/music" className="link" activeClassName="selected">
-                        <span className="material-icons side__icon">
-                                equalizer
-                        </span> 
-                        Music
-                    </NavLink>
-                </li>
-                <li className="side__item">
-                    <NavLink to="/misc" className="link" activeClassName="selected">
-                        <span className="material-icons side__icon">
-                                miscellaneous_services
-                        </span> 
-                        Misc
-                    </NavLink>
-                </li>
+                {linkList.map((link, i) => (
+                    <li className="side__item" key={i}>
+                        <NavLink to={link.location} className="link" activeClassName="selected">
+                            <span className="material-icons side__icon">
+                                    {link.icon}
+                            </span> 
+                            {link.name}
+                        </NavLink>
+                    </li>
+                ))}
             </ul> 
         </nav>
-    )
+    );
 };
 
 export default Sidebar;
