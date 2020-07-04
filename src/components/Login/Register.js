@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+
+import Errors from '../Errors/Errors';
 import './Login.css';
 
 
@@ -84,11 +86,8 @@ const Register = ({ handleRegister, history }) => {
                         </p>
                     </Link>
                 </div>
-                <div className="error form-errors">
-                    <h3>
-                        {errors}
-                    </h3>
-                </div>
+                <Errors 
+                    localErrors={errors} />
             </div>
         </div>
     );

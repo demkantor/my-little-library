@@ -1,0 +1,5 @@
+.errors {
+    color: var(--danger);
+    margin-top: 3em;
+    text-align: center;
+}

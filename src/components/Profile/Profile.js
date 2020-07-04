@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import ImageUpload from '../ImageUpload/ImageUpload';
 import SubmitReset from '../Buttons/SubmitReset';
+import Errors from '../Errors/Errors';
 import './Profile.css';
 
 const Profile = ({ history }) => {
@@ -116,14 +117,11 @@ const Profile = ({ history }) => {
                         handleReset={handleReset}
                         name={"save"} />
                 </div>
-                <div className="error form-errors">
-                        <h3>
-                            {errors}
-                        </h3>
-                </div>
+                <Errors 
+                    localErrors={errors} />
             </div>
         </div>
-    )
+    );
 };
 
 export default Profile;

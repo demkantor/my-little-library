@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import ImageUpload from '../ImageUpload/ImageUpload';
 import SubmitReset from '../Buttons/SubmitReset';
+import Errors from '../Errors/Errors';
 import './Books.css';
 
 
@@ -92,11 +93,8 @@ const NewBook = ({ history }) => {
                         handleSubmit={handleSubmit} 
                         handleReset={handleReset}
                         name={"save"} />
-                </div>
-                <div className="error form-errors">
-                        <h3>
-                            {errors}
-                        </h3>
+                    <Errors 
+                        localErrors={errors} />
                 </div>
             </div>
         </div>

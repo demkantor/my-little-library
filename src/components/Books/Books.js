@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import AllBooksTable from './AllBooksTable';
 import SearchedBooksTable from './SearchedBooksTable';
 import SubmitReset from '../Buttons/SubmitReset';
+import Errors from '../Errors/Errors';
 import './Books.css';
 
 const Books = () => {
@@ -156,11 +157,8 @@ const Books = () => {
                         handleSubmit={handleSubmit} 
                         handleReset={handleReset}
                         name={"search"} />
-                    <div className="error form-errors">
-                        <h3>
-                            {errors}
-                        </h3>
-                    </div>
+                    <Errors 
+                        localErrors={errors} />
                 </div>
                 {searched === true
                 ?
