@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
+import Pagination from '../Pagination/Pagination';
 import './Books.css';
 
 const AllBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected }) => {
@@ -72,6 +74,9 @@ const AllBooksTable = ({ handleMainCheck, handleSingleCheck, deleteSelected }) =
                     }
                 </tbody>
             </table>
+            <Pagination 
+                currentPage={1}
+                numberOfPages={[1,2,3,4]} />
         </div>
     );
 };

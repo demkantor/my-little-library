@@ -8,6 +8,10 @@ const RouteMap = () => {
     // set up breadcrumb routing app.js level then add here
 
     const [routes, setRoutes] = useState(['Books', 'New']);
+
+    const currentRoute = () => {
+        setRoutes([ ...routes, 'More' ])
+    }
     
 
     return (
@@ -26,7 +30,7 @@ const RouteMap = () => {
                             keyboard_arrow_right
                         </span> 
                         <NavLink exact to={route.toLowerCase()}>
-                            <button className="route-link">
+                            <button className="route-link" onClick={currentRoute}>
                                 {route}
                             </button>
                         </NavLink>
